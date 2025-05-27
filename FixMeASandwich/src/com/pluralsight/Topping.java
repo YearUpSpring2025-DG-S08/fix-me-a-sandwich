@@ -4,17 +4,20 @@ package com.pluralsight;
 a Sandwich will have different toppings
 Each topping will have its own price
 Each topping will determine if there is extra toppings and adjust the price accordingly
+Each topping will determine if it is premium and a meat
  */
 
-public abstract class Topping {
+public class Topping {
     private String name;
-    private double price;
     private boolean addExtra;
+    private boolean isPremium;
+    private boolean isMeat;
 
-    public Topping(String name, double price, boolean addExtra) {
+    public Topping(String name, boolean addExtra, boolean isPremium, boolean isMeat) {
         this.name = name;
-        this.price = price;
         this.addExtra = addExtra;
+        this.isPremium = isPremium;
+        this.isMeat = isMeat;
     }
 
     public String getName() {
@@ -25,19 +28,27 @@ public abstract class Topping {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public boolean addExtra() {
         return addExtra;
     }
 
     public void setAddExtra(boolean addExtra) {
         this.addExtra = addExtra;
+    }
+
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(boolean premium) {
+        isPremium = premium;
+    }
+
+    public boolean isMeat() {
+        return isMeat;
+    }
+
+    public void confirmMeatTopping(boolean meat) {
+        isMeat = meat;
     }
 }
