@@ -12,6 +12,7 @@ public class Topping {
     private boolean addExtra;
     private boolean isPremium;
     private boolean isMeat;
+    double toppingPrice = 0;
 
     public Topping(String name, boolean addExtra, boolean isPremium, boolean isMeat) {
         this.name = name;
@@ -50,5 +51,70 @@ public class Topping {
 
     public void confirmMeatTopping(boolean meat) {
         isMeat = meat;
+    }
+    
+//     helper methods that will be called by the Sandwich class to add up the price of the sandwich
+//     and the toppings
+    public double getPrice(int sandwichSize){
+        if(this.isPremium){
+            if(this.isMeat){
+                return getMeatPrice(sandwichSize);
+            }
+            else {
+                return getCheesePrice(sandwichSize);
+            }
+        }
+        
+        return toppingPrice;
+    }
+    
+    private double getMeatPrice(int sandwichSize){
+        if(sandwichSize == 4) {
+            return toppingPrice = 1;
+        }
+        
+        if(addExtra) {
+            return toppingPrice += .50;
+        }
+
+        if(sandwichSize == 8) {
+            toppingPrice = 2;
+        }
+        
+        if(addExtra) {
+            return toppingPrice += 1;
+        }
+
+        if(sandwichSize == 12) {
+            toppingPrice = 3;
+        }
+
+        if (addExtra) {
+            return toppingPrice += 1.50;
+        }
+        
+        return toppingPrice;
+    }
+
+    private double getCheesePrice(int sandwichSize){
+        if(sandwichSize == 4) {
+            return toppingPrice = .75;
+            }
+            if (addExtra) {
+                return toppingPrice += .30;
+            }
+
+        if(sandwichSize == 8){
+            toppingPrice = 1.50;
+
+            if (addExtra) {
+                return toppingPrice += .60;
+            }
+        }
+
+        if (addExtra) {
+            return toppingPrice += .90;
+        }
+        return toppingPrice;
     }
 }

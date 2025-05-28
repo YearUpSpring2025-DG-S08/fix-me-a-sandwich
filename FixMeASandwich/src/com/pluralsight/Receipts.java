@@ -13,7 +13,6 @@ public class Receipts {
     // making matches for each Sandwich, Side, and Customer where they're all created at the same time
     // then mapped into a whole new CustomerOrders array list
     public List<Sandwich> sandwiches = new ArrayList<>();
-    public List<Side> sides = new ArrayList<>();
     public List<Customer> customers = new ArrayList<>();
 // will hold Customer, Sandwich, and Sides within an arraylist (?)
     // this data will be saved to the receiptFileManager to be printed to a customer
