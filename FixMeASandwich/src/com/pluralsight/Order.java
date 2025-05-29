@@ -12,35 +12,23 @@ public class Order {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     public static final LocalDateTime timeOfOrder = LocalDateTime.now();
     public static final List<OrderItem> orderItems = new ArrayList<>();
-    
-    
-    public void addItem(OrderItem item){
+
+
+    public void addItem(OrderItem item) {
         orderItems.add(item);
     }
     
-//    public void showOrder(){
-//        List<String> completeOrderItems = orderItems.stream()
-//                .map(OrderItem::orderItemDescription)
-//                .toList();
-//        
-//        List<Double> completeOrderPrices = orderItems.stream()
-//                .map(OrderItem::orderItemPrice)
-//                .toList();
-//    }
 
-    public void showCompleteOrder(List <OrderItem> list){
+    public void showCompleteOrder(List<OrderItem> list) {
         // can refactor the code to increase readability
-        System.out.println(Order.timeOfOrder.format(formatter)
-                + "\n This is your complete order: ");
-        
-        if(list.isEmpty()){
+        System.out.print("Order Created: " + Order.timeOfOrder.format(formatter));
+
+        if (list.isEmpty()) {
             System.out.println("This list is empty");
-        } else{
-            System.out.println("There's stuff in this list");
+        } else {
+            for (OrderItem item : list) {
+                System.out.printf("%s: %.2f", item.orderItemDescription(), item.orderItemPrice());
+            }
         }
-//        for(OrderItem item : list){
-//            System.out.printf("%s: %f.2f", item.orderItemDescription(), item.orderItemPrice());
-//
-//        }
     }
 }

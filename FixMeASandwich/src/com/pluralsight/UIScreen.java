@@ -41,6 +41,7 @@ public class UIScreen {
                     
                     getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
                     isToasted = getToasted.equalsIgnoreCase("Y");
+                    order.addItem(sandwich);
                     break;
                 case 2:
                     sandwichSize = 8;
@@ -49,6 +50,7 @@ public class UIScreen {
                     
                     getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
                     isToasted = getToasted.equalsIgnoreCase("Y");
+                    order.addItem(sandwich);
                     break;
                 case 3:
                     sandwichSize = 12;
@@ -57,11 +59,10 @@ public class UIScreen {
                     
                     getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
                     isToasted = getToasted.equalsIgnoreCase("Y");
+                    order.addItem(sandwich);
                     break;
                 default:
                     System.out.println("Invalid Input. Please Try Again");
-                    sandwichSize = 0;
-                    breadType = "";
                     break;
             }
             
@@ -116,7 +117,6 @@ public class UIScreen {
         // this is where we will need to utilize the Order class
         // to present the Customer and the list of OrderItems
         System.out.println("This is the checkout screen: ");
-        processOrder();
         order.showCompleteOrder(Order.orderItems);
     }
     
@@ -159,7 +159,7 @@ public class UIScreen {
         // create a new Sandwich
     }
 
-    private Topping customizePremiumToppings() {
+    private void customizePremiumToppings() {
             String premiumChoice = UIScreen.console.promptForString("""
                     What can we fix on your sandwich?
                     [1] Meat
@@ -204,10 +204,10 @@ public class UIScreen {
                     // prompt user to decide if they want extra toppings
                     boolean addExtraMeat;
                     String extraMeat = console.promptForString("Would you like an extra fixing? Y/N ");
-
                     addExtraMeat = extraMeat.equals("Y");
                     
-                    return new Topping(meatChoice, addExtraMeat, true, true);
+                    Topping meatTopping = new Topping(meatChoice, addExtraMeat, true, true);
+                    sandwich.toppings.add(meatTopping);
                     
                 
             } else if (premiumChoice.equals("2")) {
@@ -245,12 +245,12 @@ public class UIScreen {
                     String extraCheese = console.promptForString("Would you like an extra fixing? Y/N ");
                     boolean addExtraCheese = extraCheese.equals("Y");
 
-                    return new Topping(cheeseChoice, addExtraCheese, true, false);
+                    Topping cheeseTopping = new Topping(cheeseChoice, addExtraCheese, true, false);
+                    sandwich.toppings.add(cheeseTopping);
             }
-            return null;
     }
 
-    private Topping customizeRegularTopping() {
+    private void customizeRegularTopping() {
         String regularChoice = console.promptForString("""
                 What can we fix on your sandwich?
                 [1] Regular Toppings
@@ -291,7 +291,8 @@ public class UIScreen {
                 addExtraTopping = true;
             }
             
-            return new Topping(toppingChoice, addExtraTopping, false, false);
+            Topping regularTopping = new Topping(toppingChoice, addExtraTopping, false, false);
+            sandwich.toppings.add(regularTopping);
         
         } else if (regularChoice.equals("2")) {
             String sauceChoice = console.promptForString("""
@@ -318,16 +319,12 @@ public class UIScreen {
             String extraSauce = console.promptForString("Would you like an extra fixing? Y/N ");
             boolean addExtraSauce = extraSauce.equals("Y");
 
-            return new Topping(sauceChoice, addExtraSauce, false, false);
+            Topping sauce = new Topping(sauceChoice, addExtraSauce, false, false);
+            sandwich.toppings.add(sauce);
         }
-        return null;
-    }
-   
-    private Sandwich makeSandwich(){
-        return null;
     }
     
-    private Chips customizeChipsOrder(){
+    private void customizeChipsOrder(){
         String chipsFlavor = console.promptForString("""
                         What flavor chips fit your fixings? :
                         [1] Baked Jalapeno
@@ -344,10 +341,11 @@ public class UIScreen {
             default: System.out.println("Invalid Input. Please Try Again."); break;
         }
 
-        return new Chips(chipsFlavor);
+        Chips chips = new Chips(chipsFlavor);
+        order.addItem(chips);
     }
     
-    private Drink customizeDrinkOrder(){
+    private void customizeDrinkOrder(){
         String drinkFlavors = console.promptForString("""
             What flavor soda fits your fixings? :
             [1] Coke Cherry
@@ -364,29 +362,10 @@ public class UIScreen {
             default: System.out.println("Invalid Input. Please Try Again."); break;
         }
 
-        return new Drink(drinkFlavors);
+        Drink drink = new Drink(drinkFlavors);
+        order.addItem(drink);
     }
-
-    public void processOrder(){
-        // this method is simply to add the Objects that extend OrderItem are added to the Order
-        
-        if(customizePremiumToppings() == null){
-            System.out.println("No Topping");
-        } else{
-            Topping premiumTopping = customizePremiumToppings();
-            sandwich.toppings.add(premiumTopping);
-        }
-        if(customizeRegularTopping() == null){
-            System.out.println("No Topping");
-        } else{
-            Topping regularTopping = customizeRegularTopping();
-            sandwich.toppings.add(regularTopping);
-        }
-        
-        order.addItem(sandwich);
-        order.addItem(customizeChipsOrder());
-        order.addItem(customizeDrinkOrder());
-    }
+    
 }
 
 // add logic to allow for multiple toppings?
