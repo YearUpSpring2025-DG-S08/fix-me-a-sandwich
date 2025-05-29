@@ -1,6 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.Menu;
 
-public class Chips implements OrderItem{
+public class Chips implements OrderItem {
     private String chipsFlavor;
     private final double chipsPrice = 1.50;
 
@@ -14,6 +14,10 @@ public class Chips implements OrderItem{
 
     public double getChipsPrice() {
         return chipsPrice;
+    }
+
+    public void setChipsFlavor(String chipsFlavor) {
+        this.chipsFlavor = chipsFlavor;
     }
 
     @Override

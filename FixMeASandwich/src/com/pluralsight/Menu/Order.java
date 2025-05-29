@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.Menu;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,13 +21,13 @@ public class Order {
 
     public void showCompleteOrder(List<OrderItem> list) {
         // can refactor the code to increase readability
-        System.out.print("Order Created: " + Order.timeOfOrder.format(formatter));
+        System.out.print("Order Created: " + Order.timeOfOrder.format(formatter) + "\n");
 
         if (list.isEmpty()) {
             System.out.println("This list is empty");
         } else {
             for (OrderItem item : list) {
-                System.out.printf("%s: %.2f", item.orderItemDescription(), item.orderItemPrice());
+                System.out.printf("%s: $%.2f\n", item.orderItemDescription(), item.orderItemPrice());
             }
         }
     }

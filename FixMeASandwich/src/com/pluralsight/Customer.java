@@ -6,6 +6,8 @@ This customer will be saved into a CustomerOrder that will handle the details of
 
  */
 
+import com.pluralsight.Menu.Sandwich;
+
 public class Customer {
     private String customerName;
     private Sandwich sandwich;

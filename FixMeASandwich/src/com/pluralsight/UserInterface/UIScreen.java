@@ -1,10 +1,16 @@
-package com.pluralsight;
+package com.pluralsight.UserInterface;
+
+import com.pluralsight.Menu.Chips;
+import com.pluralsight.Menu.Drink;
+import com.pluralsight.Menu.Sandwich;
+import com.pluralsight.Menu.Topping;
+import com.pluralsight.Menu.Order;
 
 public class UIScreen {
     private static final Console console = new Console();
     private final Order order = new Order();
     private boolean isToasted;
-    private Sandwich sandwich;
+    public static Sandwich sandwich;
 //    private void init(){
 //        this.order = 
 //    }
@@ -37,6 +43,7 @@ public class UIScreen {
                     // confirm whether they want the order
                     sandwichSize = 4;
                     sandwich = new Sandwich(breadType, sandwichSize, isToasted);
+                    customizeSauce();
                     chooseToppings();
                     
                     getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
@@ -46,6 +53,7 @@ public class UIScreen {
                 case 2:
                     sandwichSize = 8;
                     sandwich = new Sandwich(breadType, sandwichSize, isToasted);
+                    customizeSauce();
                     chooseToppings();
                     
                     getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
@@ -55,6 +63,7 @@ public class UIScreen {
                 case 3:
                     sandwichSize = 12;
                     sandwich = new Sandwich(breadType, sandwichSize, isToasted);
+                    customizeSauce();
                     chooseToppings();
                     
                     getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
@@ -71,6 +80,7 @@ public class UIScreen {
         }
         
         String addOnSides;
+        boolean cancelOrder = false;
         do {
             addOnSides = console.promptForString("""
                     Would you like to add on some sides?
@@ -101,23 +111,41 @@ public class UIScreen {
                     if (confirmCancellation.equalsIgnoreCase("Y")) {
                         System.out.println("Order has been cancelled!");
                         System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
-                    } else {
-                        return;
+                        cancelOrder = true;
+                    } else{
+                        System.out.println("Returning to menu...");
                     }
                     break;
                 default:
                     System.out.println("Invalid Input. Please Try Again");
-                    addOnSides = "";
                     break;
             }
-        } while (!addOnSides.equalsIgnoreCase("X"));
+        } while (!cancelOrder);
     }
     
     private void showCheckoutScreen(){
         // this is where we will need to utilize the Order class
         // to present the Customer and the list of OrderItems
-        System.out.println("This is the checkout screen: ");
-        order.showCompleteOrder(Order.orderItems);
+        String confirmOrder;
+        do {
+            System.out.println("This is the checkout screen: ");
+            order.showCompleteOrder(Order.orderItems);
+
+            confirmOrder = console.promptForString("""
+                    Do you want to continue with your order? Y/N
+                    """);
+
+            if (confirmOrder.equalsIgnoreCase("Y")) {
+                System.out.println("Your order has successfully been entered");
+                // save order to file
+                // confirm to user that order has been made
+                // return customer to start screen
+                takeCustomerOrder();
+            } else {
+                System.out.println("Order has been cancelled!");
+                System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
+            }
+        } while(!confirmOrder.equalsIgnoreCase("N"));
     }
     
     // helper methods
@@ -293,9 +321,11 @@ public class UIScreen {
             
             Topping regularTopping = new Topping(toppingChoice, addExtraTopping, false, false);
             sandwich.toppings.add(regularTopping);
-        
-        } else if (regularChoice.equals("2")) {
-            String sauceChoice = console.promptForString("""
+        }
+    }
+    
+    private void customizeSauce(){
+        String sauceChoice = console.promptForString("""
                     Pick your sauce fixings:
                     [1] Mayo
                     [2] Mustard
@@ -305,23 +335,22 @@ public class UIScreen {
                     [6] Vinaigrette
                     """);
 
-            sauceChoice = switch (sauceChoice) {
-                case "1" -> "Mayo";
-                case "2" -> "Mustard";
-                case "3" -> "Ketchup";
-                case "4" -> "Ranch";
-                case "5" -> "Thousand Island ";
-                case "6" -> "Vinaigrette";
-                default -> "";
-                };
-            
+        sauceChoice = switch (sauceChoice) {
+            case "1" -> "Mayo";
+            case "2" -> "Mustard";
+            case "3" -> "Ketchup";
+            case "4" -> "Ranch";
+            case "5" -> "Thousand Island ";
+            case "6" -> "Vinaigrette";
+            default -> "";
+        };
 
-            String extraSauce = console.promptForString("Would you like an extra fixing? Y/N ");
-            boolean addExtraSauce = extraSauce.equals("Y");
 
-            Topping sauce = new Topping(sauceChoice, addExtraSauce, false, false);
-            sandwich.toppings.add(sauce);
-        }
+        String extraSauce = console.promptForString("Would you like an extra fixing? Y/N ");
+        boolean addExtraSauce = extraSauce.equals("Y");
+
+        Topping sauce = new Topping(sauceChoice, addExtraSauce, false, false);
+        sandwich.toppings.add(sauce);
     }
     
     private void customizeChipsOrder(){
@@ -362,12 +391,22 @@ public class UIScreen {
             default: System.out.println("Invalid Input. Please Try Again."); break;
         }
 
-        Drink drink = new Drink(drinkFlavors);
+        String drinkSize = console.promptForString("""
+                What size soda fits your fixings?
+                [1] Small
+                [2] Medium
+                [3] Large
+                """);
+        
+        switch(drinkSize){
+            case "1": drinkSize = "Small"; break;
+            case "2": drinkSize = "Medium"; break;
+            case "3": drinkSize = "Large"; break;
+            default: System.out.println("Invalid Input. Please Try Again."); break;
+        }
+        
+        Drink drink = new Drink(drinkFlavors, drinkSize);
         order.addItem(drink);
     }
     
 }
-
-// add logic to allow for multiple toppings?
-// would need to save every addition into a StringBuilder variable
-// prompt user to decide a sauce

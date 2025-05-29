@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.Menu;
 
 /*
 a Sandwich will have different toppings
@@ -7,10 +7,12 @@ Each topping will determine if there is extra toppings and adjust the price acco
 Each topping will determine if it is premium and a meat
  */
 
+import com.pluralsight.UserInterface.UIScreen;
+
 public class Topping {
     private String name;
-    private boolean addExtra;
-    private boolean isPremium;
+    private final boolean addExtra;
+    private final boolean isPremium;
     private boolean isMeat;
     double toppingPrice;
 
@@ -61,28 +63,30 @@ public class Topping {
     }
     
     private double getMeatPrice(int sandwichSize){
-        if(sandwichSize == 4) {
-            return toppingPrice = 1;
+        if(sandwichSize== 4) {
+            toppingPrice = 1;
+            
+            if(addExtra) {
+                return toppingPrice += .50;
+            }
         }
         
-        if(addExtra) {
-            return toppingPrice += .50;
-        }
 
         if(sandwichSize == 8) {
             toppingPrice = 2;
+            
+            if(addExtra) {
+                return toppingPrice += 1;
+            }
         }
         
-        if(addExtra) {
-            return toppingPrice += 1;
-        }
 
         if(sandwichSize == 12) {
             toppingPrice = 3;
-        }
-
-        if (addExtra) {
-            return toppingPrice += 1.50;
+            
+            if (addExtra) {
+                return toppingPrice += 1.50;
+            }
         }
         
         return toppingPrice;
@@ -90,11 +94,12 @@ public class Topping {
 
     private double getCheesePrice(int sandwichSize){
         if(sandwichSize == 4) {
-            return toppingPrice = .75;
-            }
+             toppingPrice = .75;
+             
             if (addExtra) {
                 return toppingPrice += .30;
             }
+        }
 
         if(sandwichSize == 8){
             toppingPrice = 1.50;
@@ -104,16 +109,20 @@ public class Topping {
             }
         }
 
-        if (addExtra) {
-            return toppingPrice += .90;
+        if(sandwichSize == 12) {
+            toppingPrice = 2.25;
+            if (addExtra) {
+                return toppingPrice += .90;
+            }
         }
         return toppingPrice;
     }
     
     public String toString(){
+        toppingPrice = getPrice(UIScreen.sandwich.size);
+        
         String confirmExtra = addExtra ? "(extra)" : "";
 
-        String displayToppings = String.format("Toppings: %s%s: %.2f", name, confirmExtra, toppingPrice);
-        return displayToppings;
+        return String.format("%s%s: $%.2f", name, confirmExtra, toppingPrice);
     }
 }

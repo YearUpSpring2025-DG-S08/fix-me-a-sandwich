@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class Sandwich implements OrderItem {
     // instance variables
     //private double price; // S: 5.50 / M: 7.00 / L: 8.50
     private final String breadType;
-    private final int size;
+    public int size;
     public final List<Topping> toppings = new ArrayList<>();
     private final boolean isToasted;
 
@@ -98,17 +98,19 @@ public class Sandwich implements OrderItem {
     public String orderItemDescription() {
         String toppingsList = toppings.stream()
                 .map(Topping::toString)
-                .collect(Collectors.joining(","));
+                .collect(Collectors.joining(", "));
         
         if(toppingsList.isEmpty()){
             System.out.println("No Toppings");
         }
         
+        
         String currentSandwichOrder = String.format("Your current sandwich order is: \n" +
                 "Sandwich Size: %s inches\n" +
                 "Sandwich Bread: %s\n" +
                 "Toppings: %s\n" +
-                "Got Toasted?: %s\n", size, breadType, toppingsList, isToasted);
+                "Got Toasted?: %s\n" +
+                "Sandwich Price: ", size, breadType, toppingsList, isToasted);
         return currentSandwichOrder;
     }
     
