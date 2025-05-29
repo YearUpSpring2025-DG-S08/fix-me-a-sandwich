@@ -12,7 +12,7 @@ public class Topping {
     private boolean addExtra;
     private boolean isPremium;
     private boolean isMeat;
-    double toppingPrice = 0;
+    double toppingPrice;
 
     public Topping(String name, boolean addExtra, boolean isPremium, boolean isMeat) {
         this.name = name;
@@ -33,16 +33,8 @@ public class Topping {
         return addExtra;
     }
 
-    public void setAddExtra(boolean addExtra) {
-        this.addExtra = addExtra;
-    }
-
     public boolean isPremium() {
         return isPremium;
-    }
-
-    public void setPremium(boolean premium) {
-        isPremium = premium;
     }
 
     public boolean isMeat() {
@@ -116,5 +108,12 @@ public class Topping {
             return toppingPrice += .90;
         }
         return toppingPrice;
+    }
+    
+    public String toString(){
+        String confirmExtra = addExtra ? "(extra)" : "";
+
+        String displayToppings = String.format("Toppings: %s%s: %.2f", name, confirmExtra, toppingPrice);
+        return displayToppings;
     }
 }

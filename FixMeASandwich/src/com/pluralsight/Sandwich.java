@@ -1,6 +1,8 @@
 package com.pluralsight;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 A Sandwich will be added to a Customer
@@ -11,8 +13,8 @@ public class Sandwich implements OrderItem {
     // instance variables
     //private double price; // S: 5.50 / M: 7.00 / L: 8.50
     private final String breadType;
-    private  int size;
-    private List<Topping> toppings;
+    private final int size;
+    public final List<Topping> toppings = new ArrayList<>();
     private final boolean isToasted;
 
     // constructor
@@ -34,44 +36,41 @@ public class Sandwich implements OrderItem {
     public List<Topping> getToppings() {
         return toppings;
     }
-    
 
     public boolean isToasted() {
         return isToasted;
     }
     
-    public Topping addMeat(String toppingName, boolean addExtra){
-        
-        Topping meatTopping = new Topping(toppingName, addExtra, true, true);
-        toppings.add(meatTopping);
-        return meatTopping;
-    }
-    
-    private Topping addCheese(String cheese, boolean addExtra){
-        
-        Topping cheeseTopping = new Topping(cheese, addExtra, true, false);
-        toppings.add(cheeseTopping);
-        return cheeseTopping;
-    }
-    
-    private Topping addRegularTopping(String topping, boolean addExtra, boolean isPremium, boolean isMeat){
-        
-        Topping regularTopping = new Topping(topping, addExtra, isPremium, isMeat);
-        toppings.add(regularTopping);
-        return regularTopping;
-    }
-
-    private Topping addSauce(String topping, boolean addExtra, boolean isPremium, boolean isMeat){
-        
-        Topping sauceTopping = new Topping(topping, addExtra, isPremium, isMeat);
-        toppings.add(sauceTopping);
-        return sauceTopping;
-    }
-    
-    @Override
-    public String orderItemDescription() {
-        return "This contains the description of the sandwich";
-    }
+//    public Topping addMeat(String toppingName, boolean addExtra){
+//        
+//        Topping meatTopping = new Topping(toppingName, addExtra, true, true);
+//        toppings.add(meatTopping);
+//        return meatTopping;
+//    }
+//    
+//    public Topping addCheese(String cheese, boolean addExtra){
+//        
+//        Topping cheeseTopping = new Topping(cheese, addExtra, true, false);
+//        toppings.add(cheeseTopping);
+//        return cheeseTopping;
+//    }
+//    
+//    public Topping addRegularTopping(String topping, boolean addExtra){
+//        
+//        Topping regularTopping = new Topping(topping, addExtra, false, false);
+//        toppings.add(regularTopping);
+//        return regularTopping;
+//    }
+//
+//    public Topping addSauce(String topping, boolean addExtra){
+//        
+//        Topping sauceTopping = new Topping(topping, addExtra, false, false);
+//        toppings.add(sauceTopping);
+//        return sauceTopping;
+//    }
+//    
+//    public List<Topping> 
+    // getters for the toppings
     
     @Override
     public double orderItemPrice() {
@@ -81,21 +80,37 @@ public class Sandwich implements OrderItem {
             // create a derived method that will alter the basePrice based off sandwich size (+1)
             if (getSize() == 4) {
                 sandwichPrice = 5.50;
-                
+            } else if (getSize() == 8) {
+                sandwichPrice = 7;
+            } else if (getSize() == 12) {
+                sandwichPrice = 8.50;
             }
-            if (getSize() == 8) {
-                return sandwichPrice = 7;
-            }
-            if (getSize() == 12) {
-                return sandwichPrice = 8.50;
-            }
-            
+
             //loop through all toppings, add price to total
-        
             for(Topping t : this.toppings){
                 sandwichPrice += t.getPrice(this.size);
             }
-            
+
             return sandwichPrice;
         }
+
+    @Override
+    public String orderItemDescription() {
+        String toppingsList = toppings.stream()
+                .map(Topping::toString)
+                .collect(Collectors.joining(","));
+        
+        if(toppingsList.isEmpty()){
+            System.out.println("No Toppings");
+        }
+        
+        String currentSandwichOrder = String.format("Your current sandwich order is: \n" +
+                "Sandwich Size: %s inches\n" +
+                "Sandwich Bread: %s\n" +
+                "Toppings: %s\n" +
+                "Got Toasted?: %s\n", size, breadType, toppingsList, isToasted);
+        return currentSandwichOrder;
+    }
+    
+    
 }

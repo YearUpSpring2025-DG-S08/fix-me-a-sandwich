@@ -1,17 +1,16 @@
 package com.pluralsight;
 
-import java.util.List;
-
 public class UIScreen {
     private static final Console console = new Console();
     private final Order order = new Order();
-    
+    private boolean isToasted;
+    private Sandwich sandwich;
 //    private void init(){
 //        this.order = 
 //    }
     
     // UIScreen display methods
-    public void showHomeScreen() {
+    public void takeCustomerOrder() {
 
         System.out.println("""
                 Welcome to Fix-Me-A-Sandwich!
@@ -27,33 +26,44 @@ public class UIScreen {
                     [2] 8" - "Fix me a 8 inch"
                     [3] 12" - "Fix me a 12 inch
                     """);
-
-            String breadType = "";
+            
+            String getToasted;
+            String breadType = customizeBread();
             switch (sandwichSize) {
                 case 1:
                     // prompt customers to choose toppings (create Topping object)
                     // to choose to toast their sandwich (boolean value true)
                     // add sides (create Chips/Drink object)
                     // confirm whether they want the order
-                    System.out.println("You have chosen: " + sandwichSize);
-                    breadType = customizeBread();
+                    sandwichSize = 4;
+                    sandwich = new Sandwich(breadType, sandwichSize, isToasted);
                     chooseToppings();
+                    
+                    getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
+                    isToasted = getToasted.equalsIgnoreCase("Y");
                     break;
                 case 2:
-                    System.out.println("You have chosen: " + sandwichSize);
-                    breadType = customizeBread();
+                    sandwichSize = 8;
+                    sandwich = new Sandwich(breadType, sandwichSize, isToasted);
                     chooseToppings();
+                    
+                    getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
+                    isToasted = getToasted.equalsIgnoreCase("Y");
                     break;
                 case 3:
-                    System.out.println("You have chosen: " + sandwichSize);
-                    breadType = customizeBread();
+                    sandwichSize = 12;
+                    sandwich = new Sandwich(breadType, sandwichSize, isToasted);
                     chooseToppings();
+                    
+                    getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
+                    isToasted = getToasted.equalsIgnoreCase("Y");
+                    break;
+                default:
+                    System.out.println("Invalid Input. Please Try Again");
+                    sandwichSize = 0;
+                    breadType = "";
                     break;
             }
-
-            String getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
-            boolean isToasted = getToasted.equalsIgnoreCase("Y");
-            Sandwich sandwich = new Sandwich(breadType, sandwichSize, isToasted);
             
         } else {
             System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
@@ -65,7 +75,7 @@ public class UIScreen {
                     Would you like to add on some sides?
                     [1] Add a Drink
                     [2] Add some Chips
-                    [0] Go to Checkout
+                    [C] Go to Checkout
                     [X] Cancel Order
                     """);
 
@@ -78,7 +88,7 @@ public class UIScreen {
                     // go to method where a chips object is being created
                     customizeChipsOrder();
                     break;
-                case "0":
+                case "C":
                     // go to checkout screen
                     showCheckoutScreen();
                     break;
@@ -86,7 +96,7 @@ public class UIScreen {
                     // confirm order cancellation
                     // make sure the order does not get saved into the file
                     String confirmCancellation = console.promptForString("Are you sure you want to cancel the order? Y/N ");
-
+                    
                     if (confirmCancellation.equalsIgnoreCase("Y")) {
                         System.out.println("Order has been cancelled!");
                         System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
@@ -96,6 +106,7 @@ public class UIScreen {
                     break;
                 default:
                     System.out.println("Invalid Input. Please Try Again");
+                    addOnSides = "";
                     break;
             }
         } while (!addOnSides.equalsIgnoreCase("X"));
@@ -104,10 +115,12 @@ public class UIScreen {
     private void showCheckoutScreen(){
         // this is where we will need to utilize the Order class
         // to present the Customer and the list of OrderItems
-        showCompleteOrder(Order.orderItems);
+        System.out.println("This is the checkout screen: ");
+        processOrder();
+        order.showCompleteOrder(Order.orderItems);
     }
     
-    // helper method
+    // helper methods
     private String customizeBread() {
         // prompt user to decide a bread choice
         String breadType = console.promptForString("""
@@ -117,7 +130,7 @@ public class UIScreen {
                 [3] Fix me some rye
                 [4] Fix me a wrap
                 """);
-
+        
         switch (breadType) {
             case "1": breadType = "white"; break;
             case "2": breadType = "wheat"; break;
@@ -138,23 +151,23 @@ public class UIScreen {
                 """);
 
         if (toppingType.equals("1")) {
-            customizePremiumToppings(toppingType);
+            customizePremiumToppings();
         } else if (toppingType.equals("2")) {
-            customizeRegularTopping(toppingType);
+            customizeRegularTopping();
         }
         // prompt user to decide if they want to toast their sandwich
         // create a new Sandwich
     }
 
-    private Topping customizePremiumToppings(String toppingType) {
-        if (toppingType.equals("1")) {
+    private Topping customizePremiumToppings() {
             String premiumChoice = UIScreen.console.promptForString("""
                     What can we fix on your sandwich?
                     [1] Meat
                     [2] Cheese
                     """);
-
+            
             if (premiumChoice.equals("1")) {
+                boolean meatChosen = false;
                 String meatChoice;
                 do {
                     meatChoice = console.promptForString("""
@@ -167,26 +180,38 @@ public class UIScreen {
                             [6] Bacon
                             """);
 
-                    switch (meatChoice) {
-                        case "1": meatChoice = "Steak"; break;
-                        case "2": meatChoice = "Ham"; break;
-                        case "3": meatChoice = "Salami"; break;
-                        case "4": meatChoice = "Roast Beef"; break;
-                        case "5": meatChoice = "Chicken"; break;
-                        case "6": meatChoice = "Bacon"; break;
-                        default: System.out.println("Invalid meat choice. Please choose from the menu options."); break;
+                    meatChoice = switch (meatChoice) {
+                        case "1" -> "Steak";
+                        case "2" -> "Ham";
+                        case "3" -> "Salami";
+                        case "4" -> "Roast Beef";
+                        case "5" -> "Chicken";
+                        case "6" -> "Bacon";
+                        default -> {
+                            System.out.println("Invalid meat choice. Please choose from the menu options.");
+                            yield "";
+                        }
+                    };
+
+                    if(!meatChoice.isBlank()) {
+                        meatChosen = true;
+                    } else{
+                        System.out.println("You must select a meat to make a sandwich");
                     }
 
-                            // prompt user to decide if they want extra toppings
-                            boolean addExtraMeat;
-                            String extraMeat = console.promptForString("Would you like an extra fixing? Y/N ");
+                } while (!meatChosen);
+                
+                    // prompt user to decide if they want extra toppings
+                    boolean addExtraMeat;
+                    String extraMeat = console.promptForString("Would you like an extra fixing? Y/N ");
 
-                            addExtraMeat = extraMeat.equals("Y");
-
-                            return new Topping(meatChoice, addExtraMeat, true, true);
-                    } while (meatChoice != null);
+                    addExtraMeat = extraMeat.equals("Y");
+                    
+                    return new Topping(meatChoice, addExtraMeat, true, true);
+                    
                 
             } else if (premiumChoice.equals("2")) {
+                boolean cheeseChosen = false;
                 String cheeseChoice;
                 do {
                     cheeseChoice = console.promptForString("""
@@ -197,27 +222,35 @@ public class UIScreen {
                             [4] Swiss
                             """);
 
-                    switch (cheeseChoice) {
-                        case "1": cheeseChoice = "American"; break;
-                        case "2": cheeseChoice = "Provolone"; break;
-                        case "3": cheeseChoice = "Cheddar"; break;
-                        case "4": cheeseChoice = "Swiss"; break;
-                        default: System.out.println("Invalid cheese choice. Please choose from the menu options."); break;
+                    cheeseChoice = switch (cheeseChoice) {
+                        case "1" -> "American";
+                        case "2" -> "Provolone";
+                        case "3" -> "Cheddar";
+                        case "4" -> "Swiss";
+                        default -> {
+                            System.out.println("Invalid cheese choice. Please choose from the menu options.");
+                            yield "";
+                        }
+                    };
+                    
+                    if(!cheeseChoice.isBlank()){
+                        cheeseChosen = true;
+                    } else{
+                        System.out.println("You must select a cheese to make a sandwich");
                     }
                     
+                } while (!cheeseChosen);
+                
                     // prompt user to decide if they want extra toppings
                     String extraCheese = console.promptForString("Would you like an extra fixing? Y/N ");
                     boolean addExtraCheese = extraCheese.equals("Y");
 
                     return new Topping(cheeseChoice, addExtraCheese, true, false);
-                } while (cheeseChoice != null);
             }
-
-        }
             return null;
     }
 
-    private Topping customizeRegularTopping(String toppingType) {
+    private Topping customizeRegularTopping() {
         String regularChoice = console.promptForString("""
                 What can we fix on your sandwich?
                 [1] Regular Toppings
@@ -271,54 +304,27 @@ public class UIScreen {
                     [6] Vinaigrette
                     """);
 
-            switch (sauceChoice) {
-                case "1":
-                    sauceChoice = "Mayo";
-                case "2":
-                    sauceChoice = "Mustard";
-                case "3":
-                    sauceChoice = "Ketchup";
-                case "4":
-                    sauceChoice = "Ranch";
-                case "5":
-                    sauceChoice = "Thousand Island ";
-                case "6":
-                    sauceChoice = "Vinaigrette";
-                default:
-                    System.out.println("Invalid sauce choice. Please choose from the menu options.");
-            }
+            sauceChoice = switch (sauceChoice) {
+                case "1" -> "Mayo";
+                case "2" -> "Mustard";
+                case "3" -> "Ketchup";
+                case "4" -> "Ranch";
+                case "5" -> "Thousand Island ";
+                case "6" -> "Vinaigrette";
+                default -> "";
+                };
             
-            boolean addExtraSauce = false;
 
             String extraSauce = console.promptForString("Would you like an extra fixing? Y/N ");
-
-            if(extraSauce.equals("Y")){
-                addExtraSauce = true;
-            }
+            boolean addExtraSauce = extraSauce.equals("Y");
 
             return new Topping(sauceChoice, addExtraSauce, false, false);
         }
         return null;
     }
-    
-    private Drink customizeDrinkOrder(){
-        String drinkFlavors = console.promptForString("""
-            What flavor soda fits your fixings? :
-            [1] Coke Cherry
-            [2] Dr. Pepper
-            [3] Fanta Orange
-            [4] Ginger Ale (Canada Dry)
-            """);
-
-        switch(drinkFlavors){
-            case "1": drinkFlavors = "Coke Cherry"; break;
-            case "2": drinkFlavors = "Dr. Pepper"; break;
-            case "3": drinkFlavors = "Fanta Orange"; break;
-            case "4": drinkFlavors = "Ginger Ale (Canada Dry)"; break;
-            default: System.out.println("Invalid Input. Please Try Again."); break;
-        }
-
-        return new Drink(drinkFlavors);
+   
+    private Sandwich makeSandwich(){
+        return null;
     }
     
     private Chips customizeChipsOrder(){
@@ -341,14 +347,45 @@ public class UIScreen {
         return new Chips(chipsFlavor);
     }
     
-    public void showCompleteOrder(List <OrderItem> list){
-        // can refactor the code to increase readability
-        System.out.println(Order.timeOfOrder
-        + "This is your complete order: ");
-        for(OrderItem item : list){
-            System.out.printf("%s: %f.2f", item.orderItemDescription(), item.orderItemPrice());
-            
+    private Drink customizeDrinkOrder(){
+        String drinkFlavors = console.promptForString("""
+            What flavor soda fits your fixings? :
+            [1] Coke Cherry
+            [2] Dr. Pepper
+            [3] Fanta Orange
+            [4] Ginger Ale (Canada Dry)
+            """);
+
+        switch(drinkFlavors){
+            case "1": drinkFlavors = "Coke Cherry"; break;
+            case "2": drinkFlavors = "Dr. Pepper"; break;
+            case "3": drinkFlavors = "Fanta Orange"; break;
+            case "4": drinkFlavors = "Ginger Ale (Canada Dry)"; break;
+            default: System.out.println("Invalid Input. Please Try Again."); break;
         }
+
+        return new Drink(drinkFlavors);
+    }
+
+    public void processOrder(){
+        // this method is simply to add the Objects that extend OrderItem are added to the Order
+        
+        if(customizePremiumToppings() == null){
+            System.out.println("No Topping");
+        } else{
+            Topping premiumTopping = customizePremiumToppings();
+            sandwich.toppings.add(premiumTopping);
+        }
+        if(customizeRegularTopping() == null){
+            System.out.println("No Topping");
+        } else{
+            Topping regularTopping = customizeRegularTopping();
+            sandwich.toppings.add(regularTopping);
+        }
+        
+        order.addItem(sandwich);
+        order.addItem(customizeChipsOrder());
+        order.addItem(customizeDrinkOrder());
     }
 }
 

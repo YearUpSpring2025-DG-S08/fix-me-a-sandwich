@@ -52,7 +52,7 @@ public class Console {
         }
     }
     
-    // 
+    // used to clear the scanner after an InputMisMatchException 
     public void clearScanner(){ // clears bad input from buffer (useful for promptForInt and promptForDouble usage
         scanner.nextLine();
     }
