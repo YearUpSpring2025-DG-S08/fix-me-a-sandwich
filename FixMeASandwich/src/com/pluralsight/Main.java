@@ -6,6 +6,6 @@ public class Main {
     public static void main(String[] args) {
 
         UIScreen UIScreen = new UIScreen();
-        UIScreen.takeCustomerOrder();
+        UIScreen.takeSandwichOrder();
     }
 }

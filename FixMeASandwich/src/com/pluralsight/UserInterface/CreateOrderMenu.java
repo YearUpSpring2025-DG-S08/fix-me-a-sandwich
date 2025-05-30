@@ -48,39 +48,28 @@ public class CreateOrderMenu {
 
     public void chooseToppings() {
         // prompt user to decide toppings
-        String toppingType = console.promptForString("""
-                Please choose your toppings:
-                [1] Premium (meat/cheese)
-                [2] Regular (other)
-                """);
+            String premiumChoice = console.promptForString("""
+                    What can I fix on your sandwich?
+                    === Premium ===
+                    [1] Meat
+                    [2] Cheese
+                    
+                    === Regular ===
+                    [3] Veggies
+                    [4] Sauce
+                    """);
 
-        if (toppingType.equalsIgnoreCase("1")) {
-            customizePremiumToppings();
-
-            String addRegularToppings = console.promptForString("Would you like to add regular toppings? Y/N ");
-            if(addRegularToppings.equalsIgnoreCase("Y")){
-                customizeRegularTopping();
+            switch (premiumChoice) {
+                case "1" -> addMeatTopping();
+                case "2" -> addCheeseTopping();
+                case "3" -> addVeggiesToSandwich();
+                case "4" -> addSauceToSandwich();
             }
-        } else if (toppingType.equalsIgnoreCase("2")) {
-            customizeRegularTopping();
-        }
-        
-            String addPremiumToppings = console.promptForString("Would you like to add regular toppings? Y/N ");
-            if(addPremiumToppings.equalsIgnoreCase("Y")){
-                customizePremiumToppings();
-            }
-        }
+    }
 
-    public void customizePremiumToppings() {
-        String premiumChoice = console.promptForString("""
-                What can we fix on your sandwich?
-                [1] Meat
-                [2] Cheese
-                """);
-
+    public void addMeatTopping() {
         boolean meatChosen = false;
         String meatChoice = "";
-        if (premiumChoice.equalsIgnoreCase("1")) {
             while (!meatChosen) {
                 meatChoice = console.promptForString("""
                             Pick your meat fixings:
@@ -108,8 +97,7 @@ public class CreateOrderMenu {
 
                 if (!meatChoice.isBlank()) {
                     meatChosen = true;
-                }
-                else{
+                } else{
                     System.out.println("You must select a meat to make a sandwich");
                 }
             }
@@ -118,27 +106,32 @@ public class CreateOrderMenu {
             boolean addExtraMeat = false;
             while(!addExtraMeat) {
                 String extraMeat = console.promptForString("Would you like an extra fixing? Y/N ");
-                if(extraMeat.equalsIgnoreCase("Y")){
-                    Topping meatTopping = new Topping(meatChoice, true, true, true);
-                    UIScreen.sandwich.toppings.add(meatTopping);
-
-                } else if(extraMeat.equalsIgnoreCase("N")){
-                    Topping meatTopping = new Topping(meatChoice, false, true, true);
-                    UIScreen.sandwich.toppings.add(meatTopping);
-
-                } else{
-                    System.out.println("Invalid Input. Please Try Again");
+                switch (extraMeat){
+                    case "Y" -> {
+                        Topping meatTopping = new Topping(meatChoice, true, true, true);
+                        UIScreen.sandwich.toppings.add(meatTopping);
+                    }
+                    case "N" -> {
+                        Topping meatTopping = new Topping(meatChoice, false, true, true);
+                        UIScreen.sandwich.toppings.add(meatTopping);
+                    }
+                    default -> System.out.println("Invalid Input. Please Try Again");
                 }
 
-                String moreTopping = console.promptForString("Would you like to add another premium topping? Y/N ");
+                String moreTopping = console.promptForString("Would you like to add another topping? Y/N ");
                 if(moreTopping.equalsIgnoreCase("Y")){
-                    customizePremiumToppings();
+                    chooseToppings();
+                } else if(moreTopping.equalsIgnoreCase("N")){
+                    addExtraMeat = true;
+                } else{
+                    System.out.println("Invalid Input. Going back to fixing a sandwich");
                 }
+                
                 addExtraMeat = true;
             }
-
-
-        } else if (premiumChoice.equalsIgnoreCase("2")) {
+        }
+    
+    public void addCheeseTopping(){
             boolean cheeseChosen = false;
             String cheeseChoice = "";
             while (!cheeseChosen) {
@@ -170,38 +163,36 @@ public class CreateOrderMenu {
             boolean addExtraCheese = false;
             while(!addExtraCheese) {
                 String extraCheese = console.promptForString("Would you like an extra fixing? Y/N ");
-                if (extraCheese.equalsIgnoreCase("Y")) {
-                    Topping cheeseTopping = new Topping(cheeseChoice, true, true, false);
-                    UIScreen.sandwich.toppings.add(cheeseTopping);
-
-                } else if (extraCheese.equalsIgnoreCase("N")) {
-                    Topping cheeseTopping = new Topping(cheeseChoice, false, true, false);
-                    UIScreen.sandwich.toppings.add(cheeseTopping);
-                    
-                } else {
-                    System.out.println("Invalid Input. Please Try Again");
+                switch (extraCheese){
+                    case "Y" -> {
+                        Topping cheeseTopping = new Topping(cheeseChoice, true, true, false);
+                        UIScreen.sandwich.toppings.add(cheeseTopping);
+                    }
+                    case "N" -> {
+                        Topping cheeseTopping = new Topping(cheeseChoice, false, true, false);
+                        UIScreen.sandwich.toppings.add(cheeseTopping);
+                    }
+                    default -> System.out.println("Invalid Input. Please Try Again");
                 }
 
-                String moreTopping = console.promptForString("Would you like to add another premium topping? Y/N ");
-                if (moreTopping.equalsIgnoreCase("Y")) {
-                    customizePremiumToppings();
+                String moreTopping = console.promptForString("Would you like to add another topping? Y/N ");
+                if(moreTopping.equalsIgnoreCase("Y")){
+                    chooseToppings();
+                } else if(moreTopping.equalsIgnoreCase("N")){
+                    addExtraCheese = true;
+                } else{
+                    System.out.println("Invalid Input. Going back to fixing a sandwich");
                 }
+
                 addExtraCheese = true;
             }
         }
-    }
 
-    public void customizeRegularTopping() {
-        String regularChoice = console.promptForString("""
-                What can we fix on your sandwich?
-                [1] Regular Toppings
-                [2] Sauces
-                """);
-
+    public void addVeggiesToSandwich() {
         boolean toppingChosen = false;
         String toppingChoice = "";
-        while (!toppingChosen) {
-            if (regularChoice.equalsIgnoreCase("1")) {
+        
+            while (!toppingChosen) {
                 toppingChoice = console.promptForString("""
                         Pick your fixings:
                         [1] Lettuce
@@ -235,43 +226,43 @@ public class CreateOrderMenu {
                     toppingChosen = true;
                 } else {
                     System.out.println("You must select a topping");
-                    customizeRegularTopping();
                 }
-            } else if (regularChoice.equalsIgnoreCase("2")){
-                customizeSauce();
-            }else{
-                System.out.println("Invalid Input. Please Try Again");
-            }
-        }
-
-
-        // once user inputs if they want extra, then we create the new Topping
-        boolean addExtraTopping = false;
-        while(!addExtraTopping) {
-            String extraTopping = console.promptForString("Would you like an extra fixing? Y/N ");
-
-            if (extraTopping.equalsIgnoreCase("Y")) {
-                Topping regularTopping = new Topping(toppingChoice, true, false, false);
-                UIScreen.sandwich.toppings.add(regularTopping);
-
-            } else if (extraTopping.equalsIgnoreCase("N")) {
-                Topping regularTopping = new Topping(toppingChoice, true, false, false);
-                UIScreen.sandwich.toppings.add(regularTopping);
-
-            } else {
-                System.out.println("Invalid Input. Please Try Again");
-                customizeRegularTopping();
             }
 
-            String addMoreToppings = console.promptForString("Would you like to add another topping? Y/N ");
-            if (addMoreToppings.equalsIgnoreCase("Y")) {
-                customizeRegularTopping();
+
+            // once user inputs if they want extra, then we create the new Topping
+            boolean addExtraTopping = false;
+            while (!addExtraTopping) {
+                String extraTopping = console.promptForString("Would you like an extra fixing? Y/N ");
+                switch (extraTopping) {
+                    case "Y" -> {
+                        Topping regularTopping = new Topping(toppingChoice, true, false, false);
+                        UIScreen.sandwich.toppings.add(regularTopping);
+                    }
+                    case "N" -> {
+                        Topping regularTopping = new Topping(toppingChoice, false, false, false);
+                        UIScreen.sandwich.toppings.add(regularTopping);
+                    }
+                    default -> {
+                        System.out.println("Invalid Input. Please Try Again");
+                        addVeggiesToSandwich();
+                    }
+                }
+
+                String moreTopping = console.promptForString("Would you like to add another topping? Y/N ");
+                if(moreTopping.equalsIgnoreCase("Y")){
+                    chooseToppings();
+                } else if(moreTopping.equalsIgnoreCase("N")){
+                    addExtraTopping = true;
+                } else{
+                    System.out.println("Invalid Input. Going back to fixing a sandwich");
+                }
+
+                addExtraTopping = true;
             }
-            addExtraTopping = true;
-        }
     }
 
-    public void customizeSauce() {
+    public void addSauceToSandwich() {
         boolean sauceChosen = false;
         String sauceChoice = "";
         while (!sauceChosen) {
@@ -283,6 +274,7 @@ public class CreateOrderMenu {
                     [4] Ranch
                     [5] Thousand Island
                     [6] Vinaigrette
+                    [7] Au jus (side)
                     """);
 
             sauceChoice = switch (sauceChoice) {
@@ -292,42 +284,60 @@ public class CreateOrderMenu {
                 case "4" -> "Ranch";
                 case "5" -> "Thousand Island";
                 case "6" -> "Vinaigrette";
+                case "7" -> "Au jus (side)";
                 default -> {
                     System.out.println("Invalid topping choice. Please choose from the menu options.");
                     yield "";
                 }
             };
-            
+
             if (!sauceChoice.isBlank()) {
                 sauceChosen = true;
+            } else{
+                System.out.println("You must select a sauce");
             }
-        }
+        } // end of while loop
+
 
         // once user inputs if they want extra, then we create the new Topping
         boolean addExtraSauce = false;
+
         while (!addExtraSauce) {
         String extraSauce = console.promptForString("Would you like an extra fixing? Y/N ");
-            if (extraSauce.equalsIgnoreCase("Y")) {
+        switch (extraSauce.toUpperCase()) {
+            case "Y" -> {
                 Topping sauce = new Topping(sauceChoice, true, false, false);
                 UIScreen.sandwich.toppings.add(sauce);
-                
-            } else if (extraSauce.equalsIgnoreCase("N")) {
+            }
+            case "N" -> {
                 Topping sauce = new Topping(sauceChoice, false, false, false);
                 UIScreen.sandwich.toppings.add(sauce);
-                
-            } else {
-                System.out.println("Invalid Input. Please Try Again");
             }
-
-            String moreSauce = console.promptForString("Would you like to add another sauce? Y/N ");
-            if (moreSauce.equalsIgnoreCase("Y")) {
-                customizeSauce();
-            }
-            addExtraSauce = true;
+            default -> System.out.println("Invalid Input. Please Try Again");
         }
-    }
 
-    public void customizeChipsOrder() {
+        String moreSauce = console.promptForString("Would you like to add another sauce? Y/N ");
+            switch (moreSauce.toUpperCase()){
+                case "Y" -> addSauceToSandwich();
+                case "N" -> addExtraSauce = true;
+                default -> System.out.println("Invalid Input. Please Try Again");
+                }
+
+            String moreTopping = console.promptForString("Would you like to add another topping? Y/N ");
+            if(moreTopping.equalsIgnoreCase("Y")){
+                chooseToppings();
+            } else if(moreTopping.equalsIgnoreCase("N")){
+                addExtraSauce = false;
+            } else{
+                System.out.println("Invalid Input. Going back to fixing a sandwich");
+            }
+            
+            addExtraSauce = true;
+            }
+        }
+
+    
+    public void addChipsToOrder() {
         boolean chipsChosen = false;
         while (!chipsChosen) {
             String chipsFlavor = console.promptForString("""
@@ -359,7 +369,7 @@ public class CreateOrderMenu {
         }
     }
 
-    public void customizeDrinkOrder() {
+    public void addDrinkToOrder() {
         boolean drinkChosen = false;
         do {
             String drinkFlavors = console.promptForString("""

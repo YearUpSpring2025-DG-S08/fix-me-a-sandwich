@@ -1,11 +1,8 @@
 package com.pluralsight.FileManager;
 
-//import com.pluralsight.Menu.Order;
-//import com.pluralsight.Menu.OrderItem;
 
 import com.pluralsight.Menu.Order;
 import com.pluralsight.Menu.OrderItem;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,14 +14,14 @@ public class OrderManager {
 // this class will manage Orders from customers
 // and will write the confirmed Orders to the file
     private static final String dir = "ReceiptsFolder/";
-    static File filePath = new File(dir, createFileName());
-    private Order customerOrder = new Order();
     
     public void saveReceipt(Order customerOrder){
+        File filePath = new File(dir, createFileName());
+        
         try(PrintWriter orderWriter = new PrintWriter(new FileWriter(filePath))){
 
             // write order time
-            LocalDateTime orderTime = customerOrder.getTimeOfOrder() != null ? customerOrder.getTimeOfOrder() : null;
+            LocalDateTime orderTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
             
             // write customer name
             String customerName = customerOrder.getCustomer() != null ? customerOrder.getCustomer() : "no name";
@@ -59,7 +56,7 @@ public class OrderManager {
 
         fileName.append("-");
 
-        for (String timeString: currentDate.toLocalTime().truncatedTo(ChronoUnit.NANOS).toString().split(":")){
+        for (String timeString: currentDate.toLocalTime().truncatedTo(ChronoUnit.SECONDS).toString().split(":")){
             fileName.append(timeString);
         }
         fileName.append(".txt");

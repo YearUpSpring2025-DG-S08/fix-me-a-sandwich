@@ -1,0 +1,15 @@
+==== Order Receipt ===
+Time of Order: 2025-05-30T00:09:45
+Customer Name: Diamond
+Order Items:
+=== Sandwich ===  
+Sandwich Size: 8 inches
+Sandwich Bread: rye
+Toppings: Chicken(extra): $3.00, Jalapenos(extra): $0.00, Vinaigrette: $0.00, Swiss(extra): $2.10
+Got Toasted?: true
+Sandwich Price: $12.10 
+=== Chip ===
+Baked Jalapeno: $1.50
+
+=== Drink ===
+Medium Fanta Orange: $2.50

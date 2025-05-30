@@ -24,8 +24,9 @@ public class Drink implements OrderItem {
     @Override
     public String orderItemDescription() {
         return String.format("""
-                \n=== Drink ===\n
-                %s %s: $%.2f", drinkSize, drinkFlavor, orderItemPrice()""");
+                \s === Drink ===
+                %s %s: $%.2f/n"""
+                , drinkSize, drinkFlavor, orderItemPrice());
     }
 
     @Override

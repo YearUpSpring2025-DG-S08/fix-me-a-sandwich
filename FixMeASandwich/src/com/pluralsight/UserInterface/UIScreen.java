@@ -15,7 +15,7 @@ public class UIScreen {
 //    }
 
     // UIScreen display methods
-    public void takeCustomerOrder() {
+    public void takeSandwichOrder() {
 
         System.out.println("""
                 Welcome to Fix-Me-A-Sandwich!
@@ -38,10 +38,6 @@ public class UIScreen {
                 boolean isToasted = false;
                 switch (sandwichSize) {
                     case 1:
-                        // prompt customers to choose toppings (create Topping object)
-                        // to choose to toast their sandwich (boolean value true)
-                        // add sides (create Chips/Drink object)
-                        // confirm whether they want the order
                         sandwichSize = 4;
                         breadType = createOrder.customizeBread();
                         sandwich = new Sandwich(breadType, sandwichSize, isToasted);
@@ -83,11 +79,15 @@ public class UIScreen {
                 System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
             } else {
                 System.out.println("Invalid Input. Please Try Again\n");
-                takeCustomerOrder();
+                takeSandwichOrder();
                 break;
             }
         }
+        
+        takeSideOrder();
+    }
 
+    public void takeSideOrder(){
         String addOnSides;
         boolean cancelOrder = false;
         while (!cancelOrder) {
@@ -100,23 +100,16 @@ public class UIScreen {
                     """);
 
             switch (addOnSides) {
-                case "1":
                     // go to method where a drink object is being created
-                    createOrder.customizeDrinkOrder();
-                    break;
-                case "2":
+                case "1" -> createOrder.addDrinkToOrder();
                     // go to method where a chips object is being created
-                    createOrder.customizeChipsOrder();
-                    break;
-                case "C":
+                case "2" -> createOrder.addChipsToOrder();
                     // go to checkout screen
-                    showCheckoutScreen();
-                    break;
-                case "X":
+                case "C" -> showCheckoutScreen();
                     // confirm order cancellation
                     // make sure the order does not get saved into the file
+                case "X" -> {
                     String confirmCancellation = console.promptForString("Are you sure you want to cancel the order? Y/N ");
-
                     if (confirmCancellation.equalsIgnoreCase("Y")) {
                         System.out.println("Order has been cancelled!");
                         System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
@@ -124,14 +117,12 @@ public class UIScreen {
                     } else {
                         System.out.println("Returning to menu...");
                     }
-                    break;
-                default:
-                    System.out.println("Invalid Input. Please Try Again");
-                    break;
+                }
+                default -> System.out.println("Invalid Input. Please Try Again");
             }
         }
     }
-
+    
     private void showCheckoutScreen() {
         // this is where we will need to utilize the Order class
         // to present the Customer and the list of OrderItems
@@ -139,8 +130,7 @@ public class UIScreen {
         String confirmOrder;
         while (!orderConfirmed) {
             System.out.println("""
-                    === Checkout Screen ===
-                    """);
+                    === Checkout Screen ===""");
             newOrder.showCompleteOrder();
 
             confirmOrder = console.promptForString("""
@@ -162,7 +152,7 @@ public class UIScreen {
                 // confirm to user that order has been made
                 // return customer to start screen
 //                newOrder = new Order();
-                takeCustomerOrder();
+                takeSandwichOrder();
             } else {
                 System.out.println("Order has been cancelled!");
                 System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
