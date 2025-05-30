@@ -39,6 +39,6 @@ public class PhillyCheeseSteak extends SignatureSandwich {
 
     @Override
     protected List<Topping> prepDefaultToppings() {
-        return getSignatureToppings();
+        return signatureToppings;
     }
 }

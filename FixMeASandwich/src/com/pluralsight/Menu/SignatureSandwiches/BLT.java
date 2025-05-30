@@ -40,6 +40,6 @@ public class BLT extends SignatureSandwich {
 
     @Override
     protected List<Topping> prepDefaultToppings() {
-        return getSignatureToppings();
+        return signatureToppings;
     }
 }

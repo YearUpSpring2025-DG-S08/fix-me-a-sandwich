@@ -32,9 +32,6 @@ public class TheDiamond extends SignatureSandwich {
         return signatureToppings;
     }
 
-    public void setSignatureToppings(List<Topping> signatureToppings) {
-        this.signatureToppings = signatureToppings;
-    }
 
     public Sandwich getTheDiamond() {
         return TheDiamond;
@@ -42,6 +39,6 @@ public class TheDiamond extends SignatureSandwich {
 
     @Override
     protected List<Topping> prepDefaultToppings() {
-        return getSignatureToppings();
+        return signatureToppings;
     }
 }

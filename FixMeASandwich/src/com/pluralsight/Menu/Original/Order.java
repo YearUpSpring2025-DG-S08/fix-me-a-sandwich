@@ -50,7 +50,9 @@ public class Order {
             }
         }
 
-        System.out.printf("\nTotal Cost of Order is: $%.2f\n", getOrderCost(orderItems));
+        System.out.printf("""
+    \n=== Total Cost ===
+    \n$%.2f\n""", getOrderCost(orderItems));
     }
 
     public double getOrderCost(List<OrderItem> list){

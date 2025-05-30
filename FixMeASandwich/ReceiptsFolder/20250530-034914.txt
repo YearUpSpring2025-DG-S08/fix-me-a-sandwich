@@ -1,0 +1,18 @@
+==== Order Receipt ===
+Time of Order: 2025-05-30//|03:49:14
+Customer Name: Manna
+Order Items:
+=== Sandwich ===  
+Sandwich Size: 4 inches
+Sandwich Bread: white
+Toppings: Swiss(extra): $1.05, Roast Beef(extra): $1.50, Pickles: $0.00, Onion: $0.00
+Got Toasted?: true
+Sandwich Price: $8.05 
+
+
+=== Drink ===
+Medium Fanta Orange: $2.50
+
+
+=== Chip ===
+Funyons: $1.50

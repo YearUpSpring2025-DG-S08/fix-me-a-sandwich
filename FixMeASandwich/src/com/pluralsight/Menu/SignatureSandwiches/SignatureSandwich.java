@@ -5,13 +5,21 @@ import com.pluralsight.Menu.Original.Topping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 abstract class SignatureSandwich extends Sandwich {
 
     public SignatureSandwich(String breadType, int size, boolean isToasted) {
         super(breadType, size, isToasted);
+        getOriginalToppings();
     }
 
+    private void getOriginalToppings(){
+        List<Topping> originalToppings = prepDefaultToppings();
+        this.originalToppings = new ArrayList<>(originalToppings);
+        this.toppings = new ArrayList<>(originalToppings);
+    }
+    
     protected List<Topping> originalToppings = new ArrayList<>();
 
     protected abstract List<Topping> prepDefaultToppings();
@@ -23,6 +31,29 @@ abstract class SignatureSandwich extends Sandwich {
 
     @Override
     public List<Topping> getDefaultToppings() {
-        return originalToppings;
+        return new ArrayList<>(originalToppings);
+    }
+
+    @Override
+    public String orderItemDescription() {
+
+        String toppingsList = originalToppings.stream()
+                .map(topping -> topping.display(size))
+                .collect(Collectors.joining(", "));
+
+        if(toppingsList.isEmpty()){
+            toppings.addAll(getToppings());
+        }
+
+
+
+
+        return String.format("""
+                === Sandwich === \s
+                Sandwich Size: %s inches
+                Sandwich Bread: %s
+                Toppings: %s
+                Got Toasted?: %s
+                Sandwich Price: $%.2f\s""", size, this.getBreadType(), this.getToppings(), this.isToasted(), this.orderItemPrice());
     }
 }

@@ -30,6 +30,10 @@ public class Sandwich implements OrderItem , Customizable {
     public Sandwich(){}
     
     // getters & setters
+    public String getBreadType() {
+        return breadType;
+    }
+
     public List<Topping> getToppings() {
         return toppings;
     }
@@ -37,7 +41,11 @@ public class Sandwich implements OrderItem , Customizable {
     public void setToppings(List<Topping> toppings){
         this.toppings = toppings;
     }
-    
+
+    public boolean isToasted() {
+        return isToasted;
+    }
+
     public void setToasted(boolean toasted) {
         isToasted = toasted;
     }
