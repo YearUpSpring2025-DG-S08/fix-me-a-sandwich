@@ -1,18 +1,19 @@
 package com.pluralsight.Menu.SignatureSandwiches;
 
-import com.pluralsight.Menu.Sandwich;
-import com.pluralsight.Menu.Topping;
+import com.pluralsight.Menu.Original.Sandwich;
+import com.pluralsight.Menu.Original.Topping;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cuban extends Sandwich {
+public class Cuban extends SignatureSandwich {
     private final String sandwichName = "Cuban";
     public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich Cuban;
 
     public Cuban() {
         super("Cuban Bread", 8, true);
+        this.signatureToppings = getSignatureToppings();
     }
 
     public String getSandwichName() {
@@ -35,5 +36,10 @@ public class Cuban extends Sandwich {
 
     public Sandwich getCuban() {
         return Cuban;
+    }
+
+    @Override
+    protected List<Topping> prepDefaultToppings() {
+        return getSignatureToppings();
     }
 }

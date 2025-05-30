@@ -1,4 +1,4 @@
-package com.pluralsight.Menu;
+package com.pluralsight.Menu.Original;
 /*
 a Sandwich will have different toppings
 Each topping will have its own price
@@ -6,13 +6,11 @@ Each topping will determine if there is extra toppings and adjust the price acco
 Each topping will determine if it is premium and a meat
  */
 
-import com.pluralsight.UserInterface.UIScreen;
-
 public class Topping {
     private String name;
     private final boolean addExtra;
     private final boolean isPremium;
-    private boolean isMeat;
+    private final boolean isMeat;
     double toppingPrice;
 
     public Topping(String name, boolean addExtra, boolean isPremium, boolean isMeat) {
@@ -30,22 +28,6 @@ public class Topping {
         this.name = name;
     }
 
-    public boolean addExtra() {
-        return addExtra;
-    }
-
-    public boolean isPremium() {
-        return isPremium;
-    }
-
-    public boolean isMeat() {
-        return isMeat;
-    }
-
-    public void confirmMeatTopping(boolean meat) {
-        isMeat = meat;
-    }
-    
 //     helper methods that will be called by the Sandwich class to add up the price of the sandwich
 //     and the toppings
     public double getPrice(int sandwichSize){
@@ -127,7 +109,4 @@ public class Topping {
         
         
     }
-//    public String toString(){
-//       
-//    }
 }

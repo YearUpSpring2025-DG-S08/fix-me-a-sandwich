@@ -10,7 +10,13 @@
 		{"id":"44ab51eef6d32e11","type":"text","text":"Sandwich:\ndouble price;\nString breadType;\nint size;\nList<Topping> toppings\nString sauce;\nboolean isToasted;\n\n// constructor\n// getters & setters\n// helper methods\n// derived methods\n\n\n// each sandwich can have a different type of bread\n// each sandwich can be a different size\n// each sandwich can have different toppings\n// each sandwich can have different sauces\n\n// each can sandwich can be/not be toasted\n\n// addmeat\n// addcheese\n// addstandardtopping\n// addsauce\n\n// create new instances of a Topping class","x":-1633,"y":-1280,"width":507,"height":641},
 		{"id":"15ecec2b10dc4d2c","type":"text","text":"Topping:\nString name;\nboolean addExtra;\nboolean isPremium;\nboolean isMeat;\n\n// constructor\n// getters & setters\n// helper methods\n// derived methods\n\n// toppings can be either regular or premium\n// premium is split between meat and cheese\n// extra topping is an add-on\n\n\n","x":-1597,"y":-1800,"width":435,"height":403},
 		{"id":"b3d98b50190125e5","type":"text","text":"Chips implements OrderItem\n\n// overwrite getPrice method and replace with logic to allow user to add more than one to order","x":-1505,"y":-78,"width":250,"height":288},
-		{"id":"b1ddb39b26731148","type":"text","text":"Drink implements OrderItem\n\n// overwrite getPrice method and replace with logic to allow user to add more than one to order","x":-2160,"y":-503,"width":250,"height":288}
+		{"id":"b1ddb39b26731148","type":"text","text":"Drink implements OrderItem\n\n// overwrite getPrice method and replace with logic to allow user to add more than one to order","x":-2160,"y":-503,"width":250,"height":288},
+		{"id":"70e9d08e6f348b86","x":-3260,"y":-1878,"width":250,"height":280,"type":"text","text":"<<Interface>>\nCustomizable\n<List>Topping getDefaultToppings();\n\nList<Topping> toppingsToDefault();\n\nList<Topping>getCurrentToppings();"},
+		{"id":"77f35d88d36c440a","x":-3260,"y":-1340,"width":250,"height":60,"type":"text","text":"BLT"},
+		{"id":"584a018c44afedfb","x":-3260,"y":-1220,"width":250,"height":60,"type":"text","text":"Cuban"},
+		{"id":"65f3bb08516cfa17","x":-3260,"y":-1120,"width":250,"height":60,"type":"text","text":"Philly Cheese Steak"},
+		{"id":"69c2e832f76b3eb6","x":-3260,"y":-1019,"width":250,"height":60,"type":"text","text":"The Diamond"},
+		{"id":"fca6da662048cad7","x":-2299,"y":-1284,"width":499,"height":524,"type":"text","text":"<<abstract>>\nSignatureSandwich\nprotected final List<Topping> originalToppings\n\nSignatureSandwich(){\nthis.originalToppings = prepDefaultToppings();\nthis.toppings = new ArrayList<>(originalToppings);\n}\n\nprotected abstract List<Topping> prepDefaultToppings();"}
 	],
 	"edges":[
 		{"id":"795217244fc19647","fromNode":"44ab51eef6d32e11","fromSide":"top","toNode":"15ecec2b10dc4d2c","toSide":"bottom","label":"Has a relationship"},
@@ -19,6 +25,11 @@
 		{"id":"eba2d1d76fd4ece5","fromNode":"44ab51eef6d32e11","fromSide":"bottom","toNode":"ab4f43edcba72e1f","toSide":"top","label":"Is a relationship"},
 		{"id":"cebc4c0e39529d00","fromNode":"b1ddb39b26731148","fromSide":"right","toNode":"ab4f43edcba72e1f","toSide":"left","label":"Is a relationship"},
 		{"id":"b92625ae6fe381c1","fromNode":"b3d98b50190125e5","fromSide":"top","toNode":"ab4f43edcba72e1f","toSide":"bottom","label":"Is a relationship"},
-		{"id":"d8ea0bb8d9f0c9f7","fromNode":"915bbba2bf8f7f81","fromSide":"right","toNode":"17f398c475aea923","toSide":"left","label":"Has a relationship"}
+		{"id":"d8ea0bb8d9f0c9f7","fromNode":"915bbba2bf8f7f81","fromSide":"right","toNode":"17f398c475aea923","toSide":"left","label":"Has a relationship"},
+		{"id":"fb79982fb164af51","fromNode":"77f35d88d36c440a","fromSide":"right","toNode":"44ab51eef6d32e11","toSide":"left"},
+		{"id":"97785dd64559c3a5","fromNode":"584a018c44afedfb","fromSide":"right","toNode":"44ab51eef6d32e11","toSide":"left"},
+		{"id":"be370ca0a453854e","fromNode":"65f3bb08516cfa17","fromSide":"right","toNode":"44ab51eef6d32e11","toSide":"left"},
+		{"id":"a6c4bfd6a634bcfd","fromNode":"69c2e832f76b3eb6","fromSide":"right","toNode":"44ab51eef6d32e11","toSide":"left","label":"Is a Relationship (4)"},
+		{"id":"d4585a5e0072c140","fromNode":"70e9d08e6f348b86","fromSide":"bottom","toNode":"77f35d88d36c440a","toSide":"top","toEnd":"none","label":"Is a Customizable (4)"}
 	]
 }

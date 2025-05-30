@@ -1,4 +1,6 @@
-package com.pluralsight.Menu;
+package com.pluralsight.Menu.Original;
+
+import com.pluralsight.Menu.Interfaces.OrderItem;
 
 public class Chips implements OrderItem {
     private String chipsFlavor;
@@ -23,7 +25,8 @@ public class Chips implements OrderItem {
     @Override
     public String orderItemDescription() {
         return String.format("""
-                \s === Chip ===
+                \n
+                === Chip ===
                 %s: $%.2f"""
                 , chipsFlavor, orderItemPrice());
     }

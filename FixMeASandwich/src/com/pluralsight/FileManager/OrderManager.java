@@ -1,8 +1,8 @@
 package com.pluralsight.FileManager;
 
 
-import com.pluralsight.Menu.Order;
-import com.pluralsight.Menu.OrderItem;
+import com.pluralsight.Menu.Original.Order;
+import com.pluralsight.Menu.Interfaces.OrderItem;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,11 +31,12 @@ public class OrderManager {
                     Time of Order: %s
                     Customer Name: %s
                     Order Items:
-                    """, orderTime, customerName);
+                    """, orderTime.toString().replace("T", "//|"), customerName);
             
             // write each OrderItem description and price
             for(OrderItem item: customerOrder.orderItems) {
                 orderWriter.write(item.orderItemDescription());
+                orderWriter.write("\n");
             }
             
             

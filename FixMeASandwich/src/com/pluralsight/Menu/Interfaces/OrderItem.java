@@ -1,4 +1,4 @@
-package com.pluralsight.Menu;
+package com.pluralsight.Menu.Interfaces;
 
 public interface OrderItem {
     

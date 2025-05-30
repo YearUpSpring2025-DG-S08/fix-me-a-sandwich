@@ -1,21 +1,23 @@
 package com.pluralsight.UserInterface;
 
 import com.pluralsight.FileManager.OrderManager;
-import com.pluralsight.Menu.*;
+import com.pluralsight.Menu.Original.Order;
+import com.pluralsight.Menu.Original.Sandwich;
 
-public class UIScreen {
+public class OrderScreen {
     private static final Console console = new Console();
-    public static Sandwich sandwich;
+    public static Sandwich sandwich = new Sandwich();
     public static Order newOrder = new Order();
-    public CreateOrderMenu createOrder = new CreateOrderMenu();
-    public OrderManager orderManager = new OrderManager();
+    public static FixMeABasicSandwich basicSandwich = new FixMeABasicSandwich();
+    public static FixMeASignatureSandwich signatureSandwich = new FixMeASignatureSandwich();
+    public static OrderManager orderManager = new OrderManager();
 
 //    private void init(){
 //        this.order = 
 //    }
 
     // UIScreen display methods
-    public void takeSandwichOrder() {
+    public static void takeSandwichOrder() {
 
         System.out.println("""
                 Welcome to Fix-Me-A-Sandwich!
@@ -31,63 +33,65 @@ public class UIScreen {
                         [1] 4" - "Fix me a 4 inch"
                         [2] 8" - "Fix me a 8 inch"
                         [3] 12" - "Fix me a 12 inch
+                        [4] "Fix me a Signature Sandwich"
                         """);
 
                 String getToasted;
                 String breadType;
                 boolean isToasted = false;
                 switch (sandwichSize) {
-                    case 1:
+                    case 1 -> {
                         sandwichSize = 4;
-                        breadType = createOrder.customizeBread();
+                        breadType = basicSandwich.customizeBread();
                         sandwich = new Sandwich(breadType, sandwichSize, isToasted);
-                        createOrder.chooseToppings();
+                        FixMeABasicSandwich.chooseToppings();
 
                         getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
                         sandwich.setToasted(getToasted.equalsIgnoreCase("Y"));
                         newOrder.addItem(sandwich);
                         wantSandwich = true;
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         sandwichSize = 8;
-                        breadType = createOrder.customizeBread();
+                        breadType = basicSandwich.customizeBread();
                         sandwich = new Sandwich(breadType, sandwichSize, isToasted);
-                        createOrder.chooseToppings();
+                        FixMeABasicSandwich.chooseToppings();
 
                         getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
                         sandwich.setToasted(getToasted.equalsIgnoreCase("Y"));
                         newOrder.addItem(sandwich);
                         wantSandwich = true;
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         sandwichSize = 12;
-                        breadType = createOrder.customizeBread();
+                        breadType = basicSandwich.customizeBread();
                         sandwich = new Sandwich(breadType, sandwichSize, isToasted);
-                        createOrder.chooseToppings();
+                        FixMeABasicSandwich.chooseToppings();
 
                         getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
                         sandwich.setToasted(getToasted.equalsIgnoreCase("Y"));
                         newOrder.addItem(sandwich);
                         wantSandwich = true;
-                        break;
-                    default:
-                        System.out.println("Invalid Input. Please Try Again");
-                        break;
+                    }
+                    case 4 -> {
+                        newOrder.addItem(signatureSandwich.customizeSignatureSandwich());
+                        wantSandwich = true;
+                    }
+                    default -> System.out.println("Invalid Input. Please Try Again");
                 }
 
             } else if (input.equalsIgnoreCase("N")) {
                 System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
+                wantSandwich = true;
             } else {
-                System.out.println("Invalid Input. Please Try Again\n");
-                takeSandwichOrder();
-                break;
+                System.out.println("Invalid Input. Please Try Again \n");
             }
         }
         
         takeSideOrder();
     }
 
-    public void takeSideOrder(){
+    public static void takeSideOrder(){
         String addOnSides;
         boolean cancelOrder = false;
         while (!cancelOrder) {
@@ -101,9 +105,9 @@ public class UIScreen {
 
             switch (addOnSides) {
                     // go to method where a drink object is being created
-                case "1" -> createOrder.addDrinkToOrder();
+                case "1" -> basicSandwich.addDrinkToOrder();
                     // go to method where a chips object is being created
-                case "2" -> createOrder.addChipsToOrder();
+                case "2" -> basicSandwich.addChipsToOrder();
                     // go to checkout screen
                 case "C" -> showCheckoutScreen();
                     // confirm order cancellation
@@ -123,7 +127,7 @@ public class UIScreen {
         }
     }
     
-    private void showCheckoutScreen() {
+    public static void showCheckoutScreen() {
         // this is where we will need to utilize the Order class
         // to present the Customer and the list of OrderItems
         boolean orderConfirmed = false;
@@ -149,15 +153,14 @@ public class UIScreen {
                     orderConfirmed = true;
                 }
 
-                // confirm to user that order has been made
-                // return customer to start screen
-//                newOrder = new Order();
-                takeSandwichOrder();
             } else {
                 System.out.println("Order has been cancelled!");
                 System.out.println("Thank you for coming to Fix-Me-A-Sandwich! Have a wonderful day!");
                 newOrder = new Order();
             }
+            // confirm to user that order has been made
+            // return customer to start screen
+            takeSandwichOrder();
         }
     }
 }

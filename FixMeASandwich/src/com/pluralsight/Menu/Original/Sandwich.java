@@ -1,4 +1,7 @@
-package com.pluralsight.Menu;
+package com.pluralsight.Menu.Original;
+
+import com.pluralsight.Menu.Interfaces.Customizable;
+import com.pluralsight.Menu.Interfaces.OrderItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +12,12 @@ A Sandwich will be added to a Customer
 The Sandwich will handle the heavy lifting: pulling together the Toppings and the Sides
 getting a price for itself to be applied to the Customer
  */
-public class Sandwich implements OrderItem {
+public class Sandwich implements OrderItem , Customizable {
     // instance variables
     //private double price; // S: 5.50 / M: 7.00 / L: 8.50
-    private final String breadType;
+    private String breadType;
     public int size;
-    public final List<Topping> toppings = new ArrayList<>();
+    public List<Topping> toppings = new ArrayList<>();
     private boolean isToasted;
 
     // constructor
@@ -24,8 +27,17 @@ public class Sandwich implements OrderItem {
         this.isToasted = isToasted;
     }
     
+    public Sandwich(){}
+    
     // getters & setters
+    public List<Topping> getToppings() {
+        return toppings;
+    }
 
+    public void setToppings(List<Topping> toppings){
+        this.toppings = toppings;
+    }
+    
     public void setToasted(boolean toasted) {
         isToasted = toasted;
     }
@@ -60,11 +72,11 @@ public class Sandwich implements OrderItem {
     public String orderItemDescription() {
 
         String toppingsList = toppings.stream()
-            .map(topping ->{ return topping.display(size);})
+            .map(topping -> topping.display(size))
             .collect(Collectors.joining(", "));
 
       if(toppingsList.isEmpty()){
-            System.out.println("No Toppings");
+          toppings.addAll(getToppings());
        }
 
         
@@ -78,6 +90,15 @@ public class Sandwich implements OrderItem {
                 Got Toasted?: %s
                 Sandwich Price: $%.2f\s""", size, breadType, toppingsList, isToasted, orderItemPrice());
     }
-    
-    
+
+
+    @Override
+    public void resetToDefault() {
+        this.toppings = new ArrayList<>(toppings);
+    }
+
+    @Override
+    public List<Topping> getDefaultToppings() {
+        return new ArrayList<>(toppings);
+    }
 }

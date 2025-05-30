@@ -1,4 +1,6 @@
-package com.pluralsight.Menu;
+package com.pluralsight.Menu.Original;
+
+import com.pluralsight.Menu.Interfaces.OrderItem;
 
 public class Drink implements OrderItem {
     private String drinkFlavor;
@@ -24,8 +26,9 @@ public class Drink implements OrderItem {
     @Override
     public String orderItemDescription() {
         return String.format("""
-                \s === Drink ===
-                %s %s: $%.2f/n"""
+                \n 
+                === Drink ===
+                %s %s: $%.2f"""
                 , drinkSize, drinkFlavor, orderItemPrice());
     }
 

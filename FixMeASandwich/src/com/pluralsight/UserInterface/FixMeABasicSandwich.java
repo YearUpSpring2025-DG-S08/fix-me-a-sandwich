@@ -1,13 +1,14 @@
 package com.pluralsight.UserInterface;
 
-import com.pluralsight.Menu.Chips;
-import com.pluralsight.Menu.Drink;
-import com.pluralsight.Menu.Topping;
+import com.pluralsight.Menu.Original.Chips;
+import com.pluralsight.Menu.Original.Drink;
+import com.pluralsight.Menu.Original.Topping;
 
-public class CreateOrderMenu {
+@SuppressWarnings("UnusedAssignment")
+public class FixMeABasicSandwich {
     private static final Console console = new Console();
 
-    // helper methods
+    // basic sandwich creation menu
     public String customizeBread() {
         boolean breadChosen = false;
         String breadType = "";
@@ -46,7 +47,7 @@ public class CreateOrderMenu {
         return breadType;
     }
 
-    public void chooseToppings() {
+    public static void chooseToppings() {
         // prompt user to decide toppings
             String premiumChoice = console.promptForString("""
                     What can I fix on your sandwich?
@@ -67,7 +68,7 @@ public class CreateOrderMenu {
             }
     }
 
-    public void addMeatTopping() {
+    public static void addMeatTopping() {
         boolean meatChosen = false;
         String meatChoice = "";
             while (!meatChosen) {
@@ -109,11 +110,11 @@ public class CreateOrderMenu {
                 switch (extraMeat){
                     case "Y" -> {
                         Topping meatTopping = new Topping(meatChoice, true, true, true);
-                        UIScreen.sandwich.toppings.add(meatTopping);
+                        OrderScreen.sandwich.toppings.add(meatTopping);
                     }
                     case "N" -> {
                         Topping meatTopping = new Topping(meatChoice, false, true, true);
-                        UIScreen.sandwich.toppings.add(meatTopping);
+                        OrderScreen.sandwich.toppings.add(meatTopping);
                     }
                     default -> System.out.println("Invalid Input. Please Try Again");
                 }
@@ -131,7 +132,7 @@ public class CreateOrderMenu {
             }
         }
     
-    public void addCheeseTopping(){
+    public static void addCheeseTopping(){
             boolean cheeseChosen = false;
             String cheeseChoice = "";
             while (!cheeseChosen) {
@@ -166,11 +167,11 @@ public class CreateOrderMenu {
                 switch (extraCheese){
                     case "Y" -> {
                         Topping cheeseTopping = new Topping(cheeseChoice, true, true, false);
-                        UIScreen.sandwich.toppings.add(cheeseTopping);
+                        OrderScreen.sandwich.toppings.add(cheeseTopping);
                     }
                     case "N" -> {
                         Topping cheeseTopping = new Topping(cheeseChoice, false, true, false);
-                        UIScreen.sandwich.toppings.add(cheeseTopping);
+                        OrderScreen.sandwich.toppings.add(cheeseTopping);
                     }
                     default -> System.out.println("Invalid Input. Please Try Again");
                 }
@@ -188,7 +189,7 @@ public class CreateOrderMenu {
             }
         }
 
-    public void addVeggiesToSandwich() {
+    public static void addVeggiesToSandwich() {
         boolean toppingChosen = false;
         String toppingChoice = "";
         
@@ -237,11 +238,11 @@ public class CreateOrderMenu {
                 switch (extraTopping) {
                     case "Y" -> {
                         Topping regularTopping = new Topping(toppingChoice, true, false, false);
-                        UIScreen.sandwich.toppings.add(regularTopping);
+                        OrderScreen.sandwich.toppings.add(regularTopping);
                     }
                     case "N" -> {
                         Topping regularTopping = new Topping(toppingChoice, false, false, false);
-                        UIScreen.sandwich.toppings.add(regularTopping);
+                        OrderScreen.sandwich.toppings.add(regularTopping);
                     }
                     default -> {
                         System.out.println("Invalid Input. Please Try Again");
@@ -262,7 +263,7 @@ public class CreateOrderMenu {
             }
     }
 
-    public void addSauceToSandwich() {
+    public static void addSauceToSandwich() {
         boolean sauceChosen = false;
         String sauceChoice = "";
         while (!sauceChosen) {
@@ -307,11 +308,11 @@ public class CreateOrderMenu {
         switch (extraSauce.toUpperCase()) {
             case "Y" -> {
                 Topping sauce = new Topping(sauceChoice, true, false, false);
-                UIScreen.sandwich.toppings.add(sauce);
+                OrderScreen.sandwich.toppings.add(sauce);
             }
             case "N" -> {
                 Topping sauce = new Topping(sauceChoice, false, false, false);
-                UIScreen.sandwich.toppings.add(sauce);
+                OrderScreen.sandwich.toppings.add(sauce);
             }
             default -> System.out.println("Invalid Input. Please Try Again");
         }
@@ -335,7 +336,6 @@ public class CreateOrderMenu {
             addExtraSauce = true;
             }
         }
-
     
     public void addChipsToOrder() {
         boolean chipsChosen = false;
@@ -361,7 +361,7 @@ public class CreateOrderMenu {
 
             if(!chipsFlavor.isBlank()){
                 Chips chips = new Chips(chipsFlavor);
-                UIScreen.newOrder.addItem(chips);
+                OrderScreen.newOrder.addItem(chips);
                 chipsChosen = true;
             } else{
                 System.out.println("You must select a chips flavor to make an order");
@@ -410,7 +410,7 @@ public class CreateOrderMenu {
 
             if(!(drinkFlavors.isBlank() && drinkSize.isBlank())){
                 Drink drink = new Drink(drinkFlavors, drinkSize);
-                UIScreen.newOrder.addItem(drink);
+                OrderScreen.newOrder.addItem(drink);
                 drinkChosen = true;
             } else{
                 System.out.println("You must select a drink flavor and size to make an order");

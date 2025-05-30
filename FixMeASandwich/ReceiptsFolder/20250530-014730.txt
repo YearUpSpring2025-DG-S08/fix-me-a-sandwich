@@ -1,0 +1,12 @@
+==== Order Receipt ===
+Time of Order: 2025-05-30T01:47:30
+Customer Name: Kirby
+Order Items:
+=== Sandwich ===  
+Sandwich Size: 12 inches
+Sandwich Bread: French Baguette
+Toppings: 
+Got Toasted?: true
+Sandwich Price: $8.50   === Drink ===
+Large Fanta Orange: $3.00/n  === Chip ===
+Flamin' Hot Cheetos Puffs: $1.50

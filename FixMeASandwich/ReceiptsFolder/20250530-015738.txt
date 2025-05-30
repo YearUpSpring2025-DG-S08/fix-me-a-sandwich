@@ -1,0 +1,24 @@
+==== Order Receipt ===
+Time of Order: 2025-05-30|01:57:38
+Customer Name: Logan
+Order Items:
+=== Sandwich ===  
+Sandwich Size: 8 inches
+Sandwich Bread: Cuban Bread
+Toppings: 
+Got Toasted?: true
+Sandwich Price: $7.00 
+
+ === Chip === 
+
+Funyons: $1.50
+
+ === Drink === 
+
+Small Ginger Ale (Canada Dry): $2.00
+=== Sandwich ===  
+Sandwich Size: 8 inches
+Sandwich Bread: White
+Toppings: 
+Got Toasted?: true
+Sandwich Price: $7.00 

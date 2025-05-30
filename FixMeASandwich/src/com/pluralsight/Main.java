@@ -1,11 +1,11 @@
 package com.pluralsight;
 
-import com.pluralsight.UserInterface.UIScreen;
+import com.pluralsight.UserInterface.OrderScreen;
 
 public class Main {
     public static void main(String[] args) {
 
-        UIScreen UIScreen = new UIScreen();
-        UIScreen.takeSandwichOrder();
+        OrderScreen OrderScreen = new OrderScreen();
+        OrderScreen.takeSandwichOrder();
     }
 }
