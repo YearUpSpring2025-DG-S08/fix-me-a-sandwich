@@ -19,6 +19,8 @@ abstract class SignatureSandwich extends Sandwich {
         this.signatureToppings = new ArrayList<>();
     }
     
+    
+    
     public void resetToDefault(){
         this.toppings = new ArrayList<>(signatureToppings);
     }
@@ -30,14 +32,16 @@ abstract class SignatureSandwich extends Sandwich {
 
     @Override
     public String orderItemDescription() {
-
-        String toppingsList = signatureToppings.stream()
-                .map(topping -> topping.display(size))
-                .collect(Collectors.joining(", "));
-
-        if(toppingsList.isEmpty()){
-            toppings.addAll(getToppings());
+        if(signatureToppings.isEmpty()){
+            System.out.println("This list is empty");
+        } else{
+            System.out.println("there are toppings in this list");
         }
+        
+        
+        String toppingsList = signatureToppings.stream()
+                .map(topping -> topping.display(this.size))
+                .collect(Collectors.joining(", "));
 
 
 
@@ -48,6 +52,6 @@ abstract class SignatureSandwich extends Sandwich {
                 Sandwich Bread: %s
                 Toppings: %s
                 Got Toasted?: %s
-                Sandwich Price: $%.2f\s""", size, this.getBreadType(), this.getToppings(), this.isToasted(), this.orderItemPrice());
+                Sandwich Price: $%.2f\s""", this.size, this.getBreadType(), toppingsList, this.isToasted(), this.orderItemPrice());
     }
 }

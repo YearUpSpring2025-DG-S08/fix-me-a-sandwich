@@ -7,7 +7,6 @@ import com.pluralsight.Menu.SignatureSandwiches.Cuban;
 import com.pluralsight.Menu.SignatureSandwiches.PhillyCheeseSteak;
 import com.pluralsight.Menu.SignatureSandwiches.TheDiamond;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -29,34 +28,18 @@ public class FixMeASignatureSandwich {
                 """);
 
         switch (chooseSignatureSandwich) {
-            case "1" -> {
-                BLT blt = new BLT();
-                confirmSandwichCustomization(blt);
-                return blt;
-            }
-            case "2" -> {
-                Cuban cuban = new Cuban();
-                confirmSandwichCustomization(cuban);
-                return cuban;
-            }
-            case "3" -> {
-                PhillyCheeseSteak cheeseSteak = new PhillyCheeseSteak();
-                confirmSandwichCustomization(cheeseSteak);
-                return cheeseSteak;
-            }
-            case "4" -> {
-                TheDiamond theDiamond = new TheDiamond();
-                confirmSandwichCustomization(theDiamond);
-                return theDiamond;
-            }
+            case "1" -> buildSignatureSandwich(new BLT());
+            case "2" -> buildSignatureSandwich(new Cuban());
+            case "3" -> buildSignatureSandwich(new PhillyCheeseSteak());
+            case "4" -> buildSignatureSandwich(new TheDiamond());
             default -> System.out.println("Invalid Input. Please Try Again");
         }
         
         return null;
     }
     
-    public void confirmSandwichCustomization(Sandwich signatureSandwich){
-        String originalToppingList = signatureSandwich.getDefaultToppings().stream()
+    public Sandwich confirmSandwichCustomization(Sandwich signatureSandwich){
+        String originalToppingList = signatureSandwich.toppings.stream()
                 .map(match -> match.display(signatureSandwich.size))
                 .collect(Collectors.joining("\n"));
 
@@ -75,49 +58,50 @@ public class FixMeASignatureSandwich {
             case "3" -> OrderScreen.showCheckoutScreen();
             default -> System.out.println("Invalid Input. Please Try Again");
         }
+        return signatureSandwich;
     }
-    
-    private void addToppingsToSandwich(Sandwich signatureSandwich){
-        // this method needs to take the toppings of the chosen signature sandwich and
-        // allowing the user to add more
+
+    private void addToppingsToSandwich(Sandwich signatureSandwich) {
+        System.out.println("\n=== Add Extra Toppings ===");
+
+        // the main method used to choose toppings relies on the sandwich order from within Order Screen
+        // saving original sandwich to reduce any errors from other usage cases
+        Sandwich saveBasicSandwich = OrderScreen.sandwich;
+
+
+        // temporarily saving this variable allows the user to add toppings to the signature sandwich
+        OrderScreen.sandwich = signatureSandwich;
+
+        // use existing method to choose toppings while the Order Screen sandwich is saved to the signature sandwich
         FixMeABasicSandwich.chooseToppings();
-        signatureSandwich.getDefaultToppings().addAll(OrderScreen.sandwich.toppings);
+
+        // after completing the topping addition - returning order screen sandwich back to the basic sandwich
+        // to reduce any errors in other parts of the code that use its sandwich methods
+        if (saveBasicSandwich != null) {
+            OrderScreen.sandwich = saveBasicSandwich;
+        }
     }
     
-    private List<Topping> removeToppingsFromSandwich(Sandwich signatureSandwich){
+    private void removeToppingsFromSandwich(Sandwich signatureSandwich){
         // this method will take a topping the user enters
         // and matches the topping name to remove
-        List<Topping> toppingsToRemove = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("List size: " + signatureSandwich.toppings.size());
+        
+        List<Topping> toRemove = signatureSandwich.toppings.stream()
+                .filter(topping -> {
+                    System.out.println("Remove " + topping.getName() + "? (y/n): ");
+                    return new Scanner(System.in).nextLine().toLowerCase().startsWith("y");
+                })
+                .toList();
 
-        while (true) {
-            // Display current toppings
-            System.out.println("\n=== Current Toppings ===");
-            if (signatureSandwich.toppings.isEmpty()) {
-                System.out.println("No toppings on the sandwich.");
-                break;
-            }
-
-            for (int i = 0; i < signatureSandwich.toppings.size(); i++) {
-                System.out.println((i + 1) + ". " + signatureSandwich.toppings.get(i).getName());
-            }
-            
-            System.out.println("0. Done removing toppings");
-            System.out.print("Select a topping to remove (enter number): ");
-
-            int choice = scanner.nextInt();
-
-            if (choice == 0) {
-                break;
-            } else if (choice > 0 && choice <= signatureSandwich.toppings.size()) {
-                Topping removedTopping = signatureSandwich.toppings.remove(choice - 1);
-                toppingsToRemove.add(removedTopping);
-                System.out.println("Removed: " + removedTopping.getName());
-            } else {
-                System.out.println("Invalid selection. Please try again.");
-            }
-        }
-
-        return toppingsToRemove;
+        // Then remove them safely
+        signatureSandwich.toppings.removeAll(toRemove);
+    }
+    
+    // helper method to create signature sandwich and initializing the array list of each sandwich
+    private Sandwich buildSignatureSandwich(Sandwich signatureSandwiches) {
+        signatureSandwiches.resetToDefault();
+        confirmSandwichCustomization(signatureSandwiches);
+        return signatureSandwiches;
     }
 }

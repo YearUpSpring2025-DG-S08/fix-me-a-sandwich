@@ -50,7 +50,7 @@ public class Order {
 
         System.out.printf("""
     \n=== Total Cost ===
-    \n$%.2f\n""", getOrderCost(orderItems));
+    $%.2f\n""", getOrderCost(orderItems));
     }
 
     // combines items within the list to give final price

@@ -11,12 +11,11 @@ import java.util.List;
 // each subclass of Signature Sandwich will have their own set of predetermined toppings
 // as well as a predetermine bread type, size, and boolean value which can be changed by the user
 public class BLT extends SignatureSandwich {
-    public List <Topping> signatureToppings = new ArrayList<>();
-    public Sandwich BLT;
 
     public BLT() {
         super("White", 8, true);
-        getDefaultToppings();
+        setSignatureToppings();
+        resetToDefault();
     }
 
     public String getSandwichName() {
@@ -24,22 +23,22 @@ public class BLT extends SignatureSandwich {
     }
     
 
-    public void setSignatureToppings(List<Topping> signatureToppings) {
+    public void setSignatureToppings() {
         signatureToppings.add(new Topping("Bacon", false, true, true));
         signatureToppings.add(new Topping("Cheddar", false, true, false));
         signatureToppings.add(new Topping("Lettuce", false, false, false));
         signatureToppings.add(new Topping("Tomato", false, false, false));
         signatureToppings.add(new Topping("Ranch", false, false, false));
-
-        this.signatureToppings = signatureToppings;
     }
-
-    public Sandwich getBLT() {
-        return BLT;
-    }
+    
 
     @Override
     public List<Topping> getDefaultToppings() {
         return signatureToppings;
+    }
+
+    @Override
+    public void resetToDefault() {
+        this.toppings = new ArrayList<>(signatureToppings);
     }
 }

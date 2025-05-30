@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cuban extends SignatureSandwich {
-    public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich Cuban;
 
     public Cuban() {
         super("Cuban Bread", 8, true);
-        getDefaultToppings();
+        setSignatureToppings();
+        resetToDefault();
     }
 
     public String getSandwichName() {
         return "Cuban";
     }
 
-    public List<Topping> getSignatureToppings() {
+    public List<Topping> setSignatureToppings() {
         signatureToppings.add(new Topping("Roasted Pork", false, true, true));
         signatureToppings.add(new Topping("Ham", false, true, true));
         signatureToppings.add(new Topping("Swiss Cheese", false, true, false));
@@ -39,6 +39,11 @@ public class Cuban extends SignatureSandwich {
 
     @Override
     public List<Topping> getDefaultToppings() {
-        return getSignatureToppings();
+        return signatureToppings;
+    }
+
+    @Override
+    public void resetToDefault() {
+        this.toppings = new ArrayList<>(signatureToppings);
     }
 }

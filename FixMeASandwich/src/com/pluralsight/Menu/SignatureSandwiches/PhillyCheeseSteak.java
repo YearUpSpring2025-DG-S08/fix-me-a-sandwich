@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhillyCheeseSteak extends SignatureSandwich {
-    public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich CheeseSteak;
 
     public PhillyCheeseSteak() {
         super("White", 8, true);
-        getDefaultToppings();
+        setSignatureToppings();
+        resetToDefault();
     }
 
     public String getSandwichName() {
         return "Philly Cheese Steak";
     }
 
-    public List<Topping> getSignatureToppings() {
+    public List<Topping> setSignatureToppings() {
         signatureToppings.add(new Topping("Steak", false, true, true));
         signatureToppings.add(new Topping("American Cheese", false, true, false));
         signatureToppings.add(new Topping("Peppers", false, false, false));
@@ -38,6 +38,11 @@ public class PhillyCheeseSteak extends SignatureSandwich {
 
     @Override
     public List<Topping> getDefaultToppings() {
-        return getSignatureToppings();
+        return signatureToppings;
+    }
+
+    @Override
+    public void resetToDefault() {
+        this.toppings = new ArrayList<>(signatureToppings);
     }
 }

@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TheDiamond extends SignatureSandwich {
-    public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich TheDiamond;
 
     public TheDiamond() {
         super("French Baguette", 12, true);
-        getDefaultToppings();
+        setSignatureToppings();
+        resetToDefault();
     }
 
     public String getSandwichName() {
         return "The Diamond";
     }
 
-    public List<Topping> getSignatureToppings() {
+    public List<Topping> setSignatureToppings() {
         signatureToppings.add(new Topping("Mozzarella", false, true, false));
         signatureToppings.add(new Topping("Lettuce", false, false, false));
         signatureToppings.add(new Topping("Red Onion", false, false, false));
@@ -41,6 +41,11 @@ public class TheDiamond extends SignatureSandwich {
 
     @Override
     public List<Topping> getDefaultToppings() {
-        return getSignatureToppings();
+        return signatureToppings;
+    }
+
+    @Override
+    public void resetToDefault() {
+        this.toppings = new ArrayList<>(signatureToppings);
     }
 }

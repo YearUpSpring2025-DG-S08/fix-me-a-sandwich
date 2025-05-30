@@ -28,7 +28,7 @@ public class Drink implements OrderItem {
         return String.format("""
                 \n 
                 === Drink ===
-                %s %s: $%.2f"""
+                %s %s: $%.2f\n"""
                 , drinkSize, drinkFlavor, orderItemPrice());
     }
 
