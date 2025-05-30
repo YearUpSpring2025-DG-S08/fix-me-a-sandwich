@@ -1,0 +1,10 @@
+==== Order Receipt ===
+Time of Order: 2025-05-29T18:45:15.553121800
+Customer Name: Damian
+Order Items:
+=== Sandwich ===  
+Sandwich Size: 4 inches
+Sandwich Bread: white
+Toppings: Jalapenos(extra): $0.00
+Got Toasted?: false
+Sandwich Price: $5.50 

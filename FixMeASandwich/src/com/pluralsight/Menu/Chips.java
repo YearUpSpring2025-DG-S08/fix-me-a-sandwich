@@ -22,7 +22,9 @@ public class Chips implements OrderItem {
 
     @Override
     public String orderItemDescription() {
-        return String.format("%s", chipsFlavor);
+        return String.format("""
+                \n=== Chip ===\n
+                %s: $%.2f\n", chipsFlavor, orderItemPrice()""");
     }
 
     @Override

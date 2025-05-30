@@ -2,7 +2,7 @@ package com.pluralsight.Menu;
 
 public class Drink implements OrderItem {
     private String drinkFlavor;
-    private String drinkSize;
+    private final String drinkSize;
 
     public Drink(String drinkFlavor, String drinkSize) {
         this.drinkFlavor = drinkFlavor;
@@ -23,7 +23,9 @@ public class Drink implements OrderItem {
 
     @Override
     public String orderItemDescription() {
-        return String.format("%s %s", drinkSize, drinkFlavor);
+        return String.format("""
+                \n=== Drink ===\n
+                %s %s: $%.2f", drinkSize, drinkFlavor, orderItemPrice()""");
     }
 
     @Override
@@ -38,5 +40,5 @@ public class Drink implements OrderItem {
         }
         
         return drinkPrice;
+        }
     }
-}

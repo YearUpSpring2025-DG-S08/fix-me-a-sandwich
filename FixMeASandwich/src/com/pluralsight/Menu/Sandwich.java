@@ -15,7 +15,7 @@ public class Sandwich implements OrderItem {
     private final String breadType;
     public int size;
     public final List<Topping> toppings = new ArrayList<>();
-    private final boolean isToasted;
+    private boolean isToasted;
 
     // constructor
     public Sandwich(String breadType, int size, boolean isToasted) {
@@ -25,52 +25,14 @@ public class Sandwich implements OrderItem {
     }
     
     // getters & setters
-    public String getBreadType() {
-        return breadType;
+
+    public void setToasted(boolean toasted) {
+        isToasted = toasted;
     }
-    
+
     public int getSize() {
         return size;
     }
-
-    public List<Topping> getToppings() {
-        return toppings;
-    }
-
-    public boolean isToasted() {
-        return isToasted;
-    }
-    
-//    public Topping addMeat(String toppingName, boolean addExtra){
-//        
-//        Topping meatTopping = new Topping(toppingName, addExtra, true, true);
-//        toppings.add(meatTopping);
-//        return meatTopping;
-//    }
-//    
-//    public Topping addCheese(String cheese, boolean addExtra){
-//        
-//        Topping cheeseTopping = new Topping(cheese, addExtra, true, false);
-//        toppings.add(cheeseTopping);
-//        return cheeseTopping;
-//    }
-//    
-//    public Topping addRegularTopping(String topping, boolean addExtra){
-//        
-//        Topping regularTopping = new Topping(topping, addExtra, false, false);
-//        toppings.add(regularTopping);
-//        return regularTopping;
-//    }
-//
-//    public Topping addSauce(String topping, boolean addExtra){
-//        
-//        Topping sauceTopping = new Topping(topping, addExtra, false, false);
-//        toppings.add(sauceTopping);
-//        return sauceTopping;
-//    }
-//    
-//    public List<Topping> 
-    // getters for the toppings
     
     @Override
     public double orderItemPrice() {
@@ -96,22 +58,25 @@ public class Sandwich implements OrderItem {
 
     @Override
     public String orderItemDescription() {
+
         String toppingsList = toppings.stream()
-                .map(Topping::toString)
-                .collect(Collectors.joining(", "));
-        
-        if(toppingsList.isEmpty()){
+            .map(topping ->{ return topping.display(size);})
+            .collect(Collectors.joining(", "));
+
+      if(toppingsList.isEmpty()){
             System.out.println("No Toppings");
-        }
+       }
+
         
         
-        String currentSandwichOrder = String.format("Your current sandwich order is: \n" +
-                "Sandwich Size: %s inches\n" +
-                "Sandwich Bread: %s\n" +
-                "Toppings: %s\n" +
-                "Got Toasted?: %s\n" +
-                "Sandwich Price: ", size, breadType, toppingsList, isToasted);
-        return currentSandwichOrder;
+        
+        return String.format("""
+                === Sandwich === \s
+                Sandwich Size: %s inches
+                Sandwich Bread: %s
+                Toppings: %s
+                Got Toasted?: %s
+                Sandwich Price: $%.2f\s""", size, breadType, toppingsList, isToasted, orderItemPrice());
     }
     
     

@@ -1,5 +1,4 @@
 package com.pluralsight.Menu;
-
 /*
 a Sandwich will have different toppings
 Each topping will have its own price
@@ -118,11 +117,17 @@ public class Topping {
         return toppingPrice;
     }
     
-    public String toString(){
-        toppingPrice = getPrice(UIScreen.sandwich.size);
-        
+    public String display(int size){
+        toppingPrice = getPrice(size);
+
+
         String confirmExtra = addExtra ? "(extra)" : "";
 
         return String.format("%s%s: $%.2f", name, confirmExtra, toppingPrice);
+        
+        
     }
+//    public String toString(){
+//       
+//    }
 }
