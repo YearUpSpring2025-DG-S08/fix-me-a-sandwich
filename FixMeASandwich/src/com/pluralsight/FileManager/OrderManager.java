@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class OrderManager {
-// this class will manage Orders from customers
-// and will write the confirmed Orders to the file
+    // this class will manage Orders from customers
+    // and will write the confirmed Orders to the file
+    // each order receipt will be saved to its own directory and be saved to its own file
     private static final String dir = "ReceiptsFolder/";
     
     public void saveReceipt(Order customerOrder){
@@ -45,6 +46,7 @@ public class OrderManager {
         }
     }
     
+    // creates the file name of the receipt with the appropriate time and date - at point of sale
     public static String createFileName(){
         LocalDateTime currentDate = LocalDateTime.now();
         StringBuilder fileName = new StringBuilder();

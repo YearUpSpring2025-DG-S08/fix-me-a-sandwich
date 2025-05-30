@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+// separated the logic of creating a signature sandwich due to the nature of a signature sandwich
+// each method is focused on customization of the sandwich
+// still experiencing errors with null values in list
 public class FixMeASignatureSandwich {
     private static final Console console = new Console();
     

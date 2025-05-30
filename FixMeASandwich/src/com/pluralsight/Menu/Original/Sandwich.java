@@ -54,6 +54,8 @@ public class Sandwich implements OrderItem , Customizable {
         return size;
     }
     
+    // overriding interface OrderItem method to calculate price as a derived method
+    // necessary due to size + toppings alter price
     @Override
     public double orderItemPrice() {
         double sandwichPrice = 0;
@@ -76,6 +78,8 @@ public class Sandwich implements OrderItem , Customizable {
             return sandwichPrice;
         }
 
+    // replaces a normal ToString method
+    // used a stream to map the toppings to a String to allow for display
     @Override
     public String orderItemDescription() {
 
@@ -99,14 +103,15 @@ public class Sandwich implements OrderItem , Customizable {
                 Sandwich Price: $%.2f\s""", size, breadType, toppingsList, isToasted, orderItemPrice());
     }
 
+// override methods from Interface Customizable
+// allows for sandwich toppings to be reset
+@Override
+public void resetToDefault() {
+    this.toppings = new ArrayList<>(toppings);
+}
 
-    @Override
-    public void resetToDefault() {
-        this.toppings = new ArrayList<>(toppings);
-    }
-
-    @Override
-    public List<Topping> getDefaultToppings() {
-        return new ArrayList<>(toppings);
-    }
+@Override
+public List<Topping> getDefaultToppings() {
+    return new ArrayList<>(toppings);
+}
 }

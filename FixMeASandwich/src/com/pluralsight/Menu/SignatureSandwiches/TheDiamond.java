@@ -13,7 +13,7 @@ public class TheDiamond extends SignatureSandwich {
 
     public TheDiamond() {
         super("French Baguette", 12, true);
-        this.signatureToppings = getSignatureToppings();
+        this.signatureToppings = prepDefaultToppings();
     }
 
     public String getSandwichName() {
@@ -32,6 +32,9 @@ public class TheDiamond extends SignatureSandwich {
         return signatureToppings;
     }
 
+    public void setSignatureToppings(List<Topping> signatureToppings) {
+        this.signatureToppings = signatureToppings;
+    }
 
     public Sandwich getTheDiamond() {
         return TheDiamond;
@@ -39,6 +42,6 @@ public class TheDiamond extends SignatureSandwich {
 
     @Override
     protected List<Topping> prepDefaultToppings() {
-        return signatureToppings;
+        return getSignatureToppings();
     }
 }

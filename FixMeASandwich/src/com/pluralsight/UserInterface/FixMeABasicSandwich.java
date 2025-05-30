@@ -5,6 +5,9 @@ import com.pluralsight.Menu.Original.Drink;
 import com.pluralsight.Menu.Original.Topping;
 
 @SuppressWarnings("UnusedAssignment")
+// created a new class to handle sandwich creation
+// mainly due to separation of responsibility between OrderScreen and this screen
+// partially due to wall of code build up - necessary to clean up code and make it easier to find and correct errors
 public class FixMeABasicSandwich {
     private static final Console console = new Console();
 

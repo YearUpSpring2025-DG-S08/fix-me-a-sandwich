@@ -36,6 +36,9 @@ public class OrderScreen {
                         [4] "Fix me a Signature Sandwich"
                         """);
 
+                
+                // chose to separate these variables to make it easier to create a Sandwich without waiting until
+                // the end of an order - necessary to add toppings to sandwich
                 String getToasted;
                 String breadType;
                 boolean isToasted = false;
@@ -91,6 +94,8 @@ public class OrderScreen {
         takeSideOrder();
     }
 
+    // separated sandwich order and sides order to reduce a wall of code - increase readability
+    // allow for better error handling and separation of responsibilities between methods
     public static void takeSideOrder(){
         String addOnSides;
         boolean cancelOrder = false;
@@ -110,8 +115,7 @@ public class OrderScreen {
                 case "2" -> basicSandwich.addChipsToOrder();
                     // go to checkout screen
                 case "C" -> showCheckoutScreen();
-                    // confirm order cancellation
-                    // make sure the order does not get saved into the file
+                // allowing two points of cancellation - before and after user receives price of items
                 case "X" -> {
                     String confirmCancellation = console.promptForString("Are you sure you want to cancel the order? Y/N ");
                     if (confirmCancellation.equalsIgnoreCase("Y")) {
@@ -127,6 +131,7 @@ public class OrderScreen {
         }
     }
     
+    // separate checkout screen to confirm or cancel order
     public static void showCheckoutScreen() {
         // this is where we will need to utilize the Order class
         // to present the Customer and the list of OrderItems

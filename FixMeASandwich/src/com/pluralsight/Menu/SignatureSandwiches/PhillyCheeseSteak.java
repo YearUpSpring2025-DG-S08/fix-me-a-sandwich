@@ -13,7 +13,7 @@ public class PhillyCheeseSteak extends SignatureSandwich {
 
     public PhillyCheeseSteak() {
         super("White", 8, true);
-        this.signatureToppings = getSignatureToppings();
+        this.signatureToppings = prepDefaultToppings();
     }
 
     public String getSandwichName() {
@@ -39,6 +39,6 @@ public class PhillyCheeseSteak extends SignatureSandwich {
 
     @Override
     protected List<Topping> prepDefaultToppings() {
-        return signatureToppings;
+        return getSignatureToppings();
     }
 }

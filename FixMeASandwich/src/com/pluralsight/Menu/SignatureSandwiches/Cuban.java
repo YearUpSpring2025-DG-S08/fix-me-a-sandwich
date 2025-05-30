@@ -13,7 +13,7 @@ public class Cuban extends SignatureSandwich {
 
     public Cuban() {
         super("Cuban Bread", 8, true);
-        this.signatureToppings = getSignatureToppings();
+        this.signatureToppings = prepDefaultToppings();
     }
 
     public String getSandwichName() {
@@ -40,6 +40,6 @@ public class Cuban extends SignatureSandwich {
 
     @Override
     protected List<Topping> prepDefaultToppings() {
-        return signatureToppings;
+        return getSignatureToppings();
     }
 }
