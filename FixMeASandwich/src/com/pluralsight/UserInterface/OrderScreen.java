@@ -8,7 +8,7 @@ public class OrderScreen {
     private static final Console console = new Console();
     public static Sandwich sandwich = new Sandwich();
     public static Order newOrder = new Order();
-    public static FixMeABasicSandwich basicSandwich = new FixMeABasicSandwich();
+    public static FixMeABasicSandwich basicSandwichBuilder = new FixMeABasicSandwich();
     public static FixMeASignatureSandwich signatureSandwich = new FixMeASignatureSandwich();
     public static OrderManager orderManager = new OrderManager();
 
@@ -23,9 +23,9 @@ public class OrderScreen {
                 Welcome to Fix-Me-A-Sandwich!
                 Where you can fully customize your sandwich to however you choose!""");
 
-        String input = console.promptForString("Can I fix you a sandwich?: Y/N ");
         boolean wantSandwich = false;
         while (!wantSandwich) {
+        String input = console.promptForString("Can I fix you a sandwich?: Y/N ");
             if (input.equalsIgnoreCase("Y")) {
 
                 int sandwichSize = console.promptForInt("""
@@ -44,36 +44,15 @@ public class OrderScreen {
                 boolean isToasted = false;
                 switch (sandwichSize) {
                     case 1 -> {
-                        sandwichSize = 4;
-                        breadType = basicSandwich.customizeBread();
-                        sandwich = new Sandwich(breadType, sandwichSize, isToasted);
-                        FixMeABasicSandwich.chooseToppings();
-
-                        getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
-                        sandwich.setToasted(getToasted.equalsIgnoreCase("Y"));
-                        newOrder.addItem(sandwich);
+                      createBasicSandwich(4);
                         wantSandwich = true;
                     }
                     case 2 -> {
-                        sandwichSize = 8;
-                        breadType = basicSandwich.customizeBread();
-                        sandwich = new Sandwich(breadType, sandwichSize, isToasted);
-                        FixMeABasicSandwich.chooseToppings();
-
-                        getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
-                        sandwich.setToasted(getToasted.equalsIgnoreCase("Y"));
-                        newOrder.addItem(sandwich);
+                        createBasicSandwich(8);
                         wantSandwich = true;
                     }
                     case 3 -> {
-                        sandwichSize = 12;
-                        breadType = basicSandwich.customizeBread();
-                        sandwich = new Sandwich(breadType, sandwichSize, isToasted);
-                        FixMeABasicSandwich.chooseToppings();
-
-                        getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
-                        sandwich.setToasted(getToasted.equalsIgnoreCase("Y"));
-                        newOrder.addItem(sandwich);
+                        createBasicSandwich(12);
                         wantSandwich = true;
                     }
                     case 4 -> {
@@ -94,6 +73,16 @@ public class OrderScreen {
         takeSideOrder();
     }
 
+    private static void createBasicSandwich(int size) {
+        String breadType = basicSandwichBuilder.customizeBread();
+        Sandwich sandwich = new Sandwich(breadType, size, false);
+        FixMeABasicSandwich.chooseToppings();
+        String getToasted = console.promptForString("Would you like your sandwich toasted? Y/N ");
+        sandwich.setToasted(getToasted.equalsIgnoreCase("Y"));
+        newOrder.addItem(sandwich);
+    }
+
+
     // separated sandwich order and sides order to reduce a wall of code - increase readability
     // allow for better error handling and separation of responsibilities between methods
     public static void takeSideOrder(){
@@ -110,9 +99,9 @@ public class OrderScreen {
 
             switch (addOnSides) {
                     // go to method where a drink object is being created
-                case "1" -> basicSandwich.addDrinkToOrder();
+                case "1" -> basicSandwichBuilder.addDrinkToOrder();
                     // go to method where a chips object is being created
-                case "2" -> basicSandwich.addChipsToOrder();
+                case "2" -> basicSandwichBuilder.addChipsToOrder();
                     // go to checkout screen
                 case "C" -> showCheckoutScreen();
                 // allowing two points of cancellation - before and after user receives price of items

@@ -79,6 +79,8 @@ public class FixMeASignatureSandwich {
         // to reduce any errors in other parts of the code that use its sandwich methods
         if (saveBasicSandwich != null) {
             OrderScreen.sandwich = saveBasicSandwich;
+        } else {
+            System.out.println("There is no sandwich to save");
         }
     }
     

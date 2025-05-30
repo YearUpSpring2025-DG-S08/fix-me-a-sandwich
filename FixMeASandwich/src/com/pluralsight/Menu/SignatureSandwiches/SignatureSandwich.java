@@ -32,14 +32,14 @@ abstract class SignatureSandwich extends Sandwich {
 
     @Override
     public String orderItemDescription() {
-        if(signatureToppings.isEmpty()){
+        if(toppings == null || toppings.isEmpty()){
             System.out.println("This list is empty");
         } else{
             System.out.println("there are toppings in this list");
         }
         
         
-        String toppingsList = signatureToppings.stream()
+        String toppingsList = toppings.stream()
                 .map(topping -> topping.display(this.size))
                 .collect(Collectors.joining(", "));
 

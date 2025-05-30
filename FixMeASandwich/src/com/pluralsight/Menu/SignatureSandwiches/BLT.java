@@ -31,14 +31,14 @@ public class BLT extends SignatureSandwich {
         signatureToppings.add(new Topping("Ranch", false, false, false));
     }
     
+    @Override
+    public void resetToDefault() {
+        this.toppings = new ArrayList<>(signatureToppings);
+    }
 
     @Override
     public List<Topping> getDefaultToppings() {
         return signatureToppings;
     }
 
-    @Override
-    public void resetToDefault() {
-        this.toppings = new ArrayList<>(signatureToppings);
-    }
 }

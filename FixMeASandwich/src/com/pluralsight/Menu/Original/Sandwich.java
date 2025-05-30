@@ -59,7 +59,6 @@ public class Sandwich implements OrderItem , Customizable {
     @Override
     public double orderItemPrice() {
         double sandwichPrice = 0;
-        // derived methods
             // uses the size and toppings to determine the price
             // create a derived method that will alter the basePrice based off sandwich size (+1)
             if (getSize() == 4) {
@@ -83,12 +82,12 @@ public class Sandwich implements OrderItem , Customizable {
     @Override
     public String orderItemDescription() {
 
-        String toppingsList = this.toppings.stream()
+        String toppingsList = toppings.stream()
             .map(topping -> topping.display(size))
             .collect(Collectors.joining(", "));
 
       if(toppingsList.isEmpty()){
-          toppings.addAll(getToppings());
+          System.out.println("This list is empty");
        }
 
         
@@ -107,7 +106,7 @@ public class Sandwich implements OrderItem , Customizable {
 // allows for sandwich toppings to be reset
 @Override
 public void resetToDefault() {
-    this.toppings = new ArrayList<>(toppings);
+    this.toppings = new ArrayList<>();
 }
 
 @Override
