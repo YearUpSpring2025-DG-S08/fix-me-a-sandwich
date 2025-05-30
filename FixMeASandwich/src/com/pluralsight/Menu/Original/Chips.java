@@ -9,7 +9,7 @@ public class Chips implements OrderItem {
     public Chips(String chipsFlavor) {
         this.chipsFlavor = chipsFlavor;
     }
-    
+
     public String getChipsFlavor() {
         return chipsFlavor;
     }

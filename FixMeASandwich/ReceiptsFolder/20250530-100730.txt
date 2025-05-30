@@ -1,0 +1,10 @@
+==== Order Receipt ===
+Time of Order: 2025-05-30|10:07:30
+Customer Name: Riley
+Order Items:
+=== Sandwich ===  
+Sandwich Size: 12 inches
+Sandwich Bread: French Baguette
+Toppings: Mozzarella: $2.25, Lettuce: $0.00, Red Onion: $0.00, Salt: $0.00, Pepper: $0.00, Oregano: $0.00, Mayo: $0.00, Chicken(extra): $4.50, Swiss(extra): $3.15
+Got Toasted?: true
+Sandwich Price: $18.40 

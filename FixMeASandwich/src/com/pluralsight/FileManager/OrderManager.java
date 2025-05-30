@@ -15,37 +15,37 @@ public class OrderManager {
     // and will write the confirmed Orders to the file
     // each order receipt will be saved to its own directory and be saved to its own file
     private static final String dir = "ReceiptsFolder/";
-    
+
     public void saveReceipt(Order customerOrder){
         File filePath = new File(dir, createFileName());
-        
+
         try(PrintWriter orderWriter = new PrintWriter(new FileWriter(filePath))){
 
             // write order time
             LocalDateTime orderTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-            
+
             // write customer name
             String customerName = customerOrder.getCustomer() != null ? customerOrder.getCustomer() : "no name";
-            
+
             orderWriter.printf("""
                     ==== Order Receipt ===
                     Time of Order: %s
                     Customer Name: %s
                     Order Items:
-                    """, orderTime.toString().replace("T", "//|"), customerName);
-            
+                    """, orderTime.toString().replace("T", "|"), customerName);
+
             // write each OrderItem description and price
             for(OrderItem item: customerOrder.orderItems) {
                 orderWriter.write(item.orderItemDescription());
                 orderWriter.write("\n");
             }
-            
-            
+
+
         } catch (IOException e){
             System.out.println("Could not write to file");
         }
     }
-    
+
     // creates the file name of the receipt with the appropriate time and date - at point of sale
     public static String createFileName(){
         LocalDateTime currentDate = LocalDateTime.now();
@@ -63,7 +63,7 @@ public class OrderManager {
             fileName.append(timeString);
         }
         fileName.append(".txt");
-        
+
         return fileName.toString();
     }
 }

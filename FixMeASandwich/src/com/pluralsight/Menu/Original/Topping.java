@@ -28,7 +28,7 @@ public class Topping {
         this.name = name;
     }
 
-//     helper methods that will be called by the Sandwich class to add up the price of the sandwich
+    //     helper methods that will be called by the Sandwich class to add up the price of the sandwich
 //     and the toppings
     public double getPrice(int sandwichSize){
         if(this.isPremium){
@@ -39,44 +39,44 @@ public class Topping {
                 return getCheesePrice(sandwichSize);
             }
         }
-        
+
         return toppingPrice;
     }
-    
+
     private double getMeatPrice(int sandwichSize){
         if(sandwichSize== 4) {
             toppingPrice = 1;
-            
+
             if(addExtra) {
                 return toppingPrice += .50;
             }
         }
-        
+
 
         if(sandwichSize == 8) {
             toppingPrice = 2;
-            
+
             if(addExtra) {
                 return toppingPrice += 1;
             }
         }
-        
+
 
         if(sandwichSize == 12) {
             toppingPrice = 3;
-            
+
             if (addExtra) {
                 return toppingPrice += 1.50;
             }
         }
-        
+
         return toppingPrice;
     }
 
     private double getCheesePrice(int sandwichSize){
         if(sandwichSize == 4) {
-             toppingPrice = .75;
-             
+            toppingPrice = .75;
+
             if (addExtra) {
                 return toppingPrice += .30;
             }
@@ -98,7 +98,7 @@ public class Topping {
         }
         return toppingPrice;
     }
-    
+
     public String display(int size){
         toppingPrice = getPrice(size);
 
@@ -106,7 +106,7 @@ public class Topping {
         String confirmExtra = addExtra ? "(extra)" : "";
 
         return String.format("%s%s: $%.2f", name, confirmExtra, toppingPrice);
-        
-        
+
+
     }
 }

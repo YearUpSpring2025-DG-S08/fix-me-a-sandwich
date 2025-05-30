@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 // still experiencing errors with null values in list
 public class FixMeASignatureSandwich {
     private static final Console console = new Console();
-    
+
     // signature sandwich customization menu
     public Sandwich customizeSignatureSandwich() {
         String chooseSignatureSandwich = console.promptForString("""
@@ -27,38 +27,49 @@ public class FixMeASignatureSandwich {
                 [4] "The Diamond"
                 """);
 
-        switch (chooseSignatureSandwich) {
+        return switch (chooseSignatureSandwich) {
             case "1" -> buildSignatureSandwich(new BLT());
             case "2" -> buildSignatureSandwich(new Cuban());
             case "3" -> buildSignatureSandwich(new PhillyCheeseSteak());
             case "4" -> buildSignatureSandwich(new TheDiamond());
-            default -> System.out.println("Invalid Input. Please Try Again");
-        }
-        
-        return null;
+            default -> {
+                System.out.println("Invalid Input. Please Try Again");
+                yield customizeSignatureSandwich(); // Recursively call until valid input
+            }
+        };
     }
-    
+
     public Sandwich confirmSandwichCustomization(Sandwich signatureSandwich){
         String originalToppingList = signatureSandwich.toppings.stream()
                 .map(match -> match.display(signatureSandwich.size))
                 .collect(Collectors.joining("\n"));
 
         System.out.println(originalToppingList);
-        
+
         String customizeToppings = console.promptForString("""
                 Would you like to add or remove any toppings?
                 [1] Add
                 [2] Remove
                 [3] Confirm Order
                 """);
-        
+
         switch (customizeToppings){
-            case "1" -> addToppingsToSandwich(signatureSandwich);
-            case "2" -> removeToppingsFromSandwich(signatureSandwich);
-            case "3" -> OrderScreen.showCheckoutScreen();
-            default -> System.out.println("Invalid Input. Please Try Again");
+            case "1" -> {
+                addToppingsToSandwich(signatureSandwich);
+                return confirmSandwichCustomization(signatureSandwich); // Continue customization
+            }
+            case "2" -> {
+                removeToppingsFromSandwich(signatureSandwich);
+                return confirmSandwichCustomization(signatureSandwich); // Continue customization
+            }
+            case "3" -> {
+                return signatureSandwich; // Return the customized sandwich
+            }
+            default -> {
+                System.out.println("Invalid Input. Please Try Again");
+                return confirmSandwichCustomization(signatureSandwich); // Try again
+            }
         }
-        return signatureSandwich;
     }
 
     private void addToppingsToSandwich(Sandwich signatureSandwich) {
@@ -83,12 +94,12 @@ public class FixMeASignatureSandwich {
             System.out.println("There is no sandwich to save");
         }
     }
-    
+
     private void removeToppingsFromSandwich(Sandwich signatureSandwich){
         // this method will take a topping the user enters
         // and matches the topping name to remove
         System.out.println("List size: " + signatureSandwich.toppings.size());
-        
+
         List<Topping> toRemove = signatureSandwich.toppings.stream()
                 .filter(topping -> {
                     System.out.println("Remove " + topping.getName() + "? (y/n): ");
@@ -99,7 +110,7 @@ public class FixMeASignatureSandwich {
         // Then remove them safely
         signatureSandwich.toppings.removeAll(toRemove);
     }
-    
+
     // helper method to create signature sandwich and initializing the array list of each sandwich
     private Sandwich buildSignatureSandwich(Sandwich signatureSandwiches) {
         signatureSandwiches.resetToDefault();

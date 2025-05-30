@@ -11,16 +11,15 @@ import java.util.stream.Collectors;
 // naturally extends sandwich which allow it to inherit from OrderItem and Customizable
 abstract class SignatureSandwich extends Sandwich {
     protected List<Topping> signatureToppings;
-    
+
     // the toppings that come on each signature sandwich must be initialized for user
     // ensures that signature sandwich list of toppings is not null and can be added/removed
     public SignatureSandwich(String breadType, int size, boolean isToasted) {
         super(breadType, size, isToasted);
         this.signatureToppings = new ArrayList<>();
     }
-    
-    
-    
+
+
     public void resetToDefault(){
         this.toppings = new ArrayList<>(signatureToppings);
     }
@@ -34,11 +33,9 @@ abstract class SignatureSandwich extends Sandwich {
     public String orderItemDescription() {
         if(toppings == null || toppings.isEmpty()){
             System.out.println("This list is empty");
-        } else{
-            System.out.println("there are toppings in this list");
         }
-        
-        
+
+
         String toppingsList = toppings.stream()
                 .map(topping -> topping.display(this.size))
                 .collect(Collectors.joining(", "));

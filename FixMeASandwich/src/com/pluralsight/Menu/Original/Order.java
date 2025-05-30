@@ -16,11 +16,11 @@ public class Order {
     public final LocalDateTime timeOfOrder;
     public final List<OrderItem> orderItems = new ArrayList<>();
     public String customer;
-    
+
     // using a default constructor to allow for the creation of an Order without the details of a customer or their Order
     // necessary due to coded logic and steps to creating an order
     public Order(){
-      this.timeOfOrder = LocalDateTime.now();
+        this.timeOfOrder = LocalDateTime.now();
     }
 
     public List<OrderItem> getOrderItems() {
@@ -30,7 +30,7 @@ public class Order {
     public String getCustomer(){
         return customer;
     }
-    
+
     public void setCustomer(String customer) {
         this.customer = customer;
     }
@@ -42,7 +42,7 @@ public class Order {
             System.out.println("Cannot add null items to order");
         }
     }
-    
+
     // used to display the entire user order for review and confirmation
     public void showCompleteOrder() {
         // can refactor the code to increase readability

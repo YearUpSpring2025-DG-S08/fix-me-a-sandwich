@@ -21,7 +21,7 @@ public class BLT extends SignatureSandwich {
     public String getSandwichName() {
         return "BLT";
     }
-    
+
 
     public void setSignatureToppings() {
         signatureToppings.add(new Topping("Bacon", false, true, true));
@@ -30,7 +30,7 @@ public class BLT extends SignatureSandwich {
         signatureToppings.add(new Topping("Tomato", false, false, false));
         signatureToppings.add(new Topping("Ranch", false, false, false));
     }
-    
+
     @Override
     public void resetToDefault() {
         this.toppings = new ArrayList<>(signatureToppings);
