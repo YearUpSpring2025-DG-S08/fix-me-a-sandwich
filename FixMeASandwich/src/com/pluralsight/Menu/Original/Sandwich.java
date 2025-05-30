@@ -83,7 +83,7 @@ public class Sandwich implements OrderItem , Customizable {
     @Override
     public String orderItemDescription() {
 
-        String toppingsList = toppings.stream()
+        String toppingsList = this.toppings.stream()
             .map(topping -> topping.display(size))
             .collect(Collectors.joining(", "));
 

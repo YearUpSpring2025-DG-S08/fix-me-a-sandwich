@@ -7,17 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cuban extends SignatureSandwich {
-    private final String sandwichName = "Cuban";
     public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich Cuban;
 
     public Cuban() {
         super("Cuban Bread", 8, true);
-        this.signatureToppings = prepDefaultToppings();
+        getDefaultToppings();
     }
 
     public String getSandwichName() {
-        return sandwichName;
+        return "Cuban";
     }
 
     public List<Topping> getSignatureToppings() {
@@ -39,7 +38,7 @@ public class Cuban extends SignatureSandwich {
     }
 
     @Override
-    protected List<Topping> prepDefaultToppings() {
+    public List<Topping> getDefaultToppings() {
         return getSignatureToppings();
     }
 }

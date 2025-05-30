@@ -8,33 +8,29 @@ import com.pluralsight.Menu.Original.Topping;
 import java.util.ArrayList;
 import java.util.List;
 
-// each sub-class of Signature Sandwich will have their own set of predetermined toppings
+// each subclass of Signature Sandwich will have their own set of predetermined toppings
 // as well as a predetermine bread type, size, and boolean value which can be changed by the user
 public class BLT extends SignatureSandwich {
-    private final String sandwichName = "BLT";
     public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich BLT;
 
     public BLT() {
         super("White", 8, true);
-        this.signatureToppings = prepDefaultToppings();
+        getDefaultToppings();
     }
 
     public String getSandwichName() {
-        return sandwichName;
+        return "BLT";
     }
+    
 
-    public List<Topping> getSignatureToppings() {
+    public void setSignatureToppings(List<Topping> signatureToppings) {
         signatureToppings.add(new Topping("Bacon", false, true, true));
         signatureToppings.add(new Topping("Cheddar", false, true, false));
         signatureToppings.add(new Topping("Lettuce", false, false, false));
         signatureToppings.add(new Topping("Tomato", false, false, false));
         signatureToppings.add(new Topping("Ranch", false, false, false));
-        
-        return signatureToppings;
-    }
 
-    public void setSignatureToppings(List<Topping> signatureToppings) {
         this.signatureToppings = signatureToppings;
     }
 
@@ -43,7 +39,7 @@ public class BLT extends SignatureSandwich {
     }
 
     @Override
-    protected List<Topping> prepDefaultToppings() {
-        return getSignatureToppings();
+    public List<Topping> getDefaultToppings() {
+        return signatureToppings;
     }
 }

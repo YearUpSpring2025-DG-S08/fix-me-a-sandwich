@@ -7,17 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TheDiamond extends SignatureSandwich {
-    private final String sandwichName = "The Diamond";
     public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich TheDiamond;
 
     public TheDiamond() {
         super("French Baguette", 12, true);
-        this.signatureToppings = prepDefaultToppings();
+        getDefaultToppings();
     }
 
     public String getSandwichName() {
-        return sandwichName;
+        return "The Diamond";
     }
 
     public List<Topping> getSignatureToppings() {
@@ -41,7 +40,7 @@ public class TheDiamond extends SignatureSandwich {
     }
 
     @Override
-    protected List<Topping> prepDefaultToppings() {
+    public List<Topping> getDefaultToppings() {
         return getSignatureToppings();
     }
 }

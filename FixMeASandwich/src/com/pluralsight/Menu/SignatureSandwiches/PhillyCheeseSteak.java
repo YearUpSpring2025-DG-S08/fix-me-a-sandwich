@@ -7,17 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhillyCheeseSteak extends SignatureSandwich {
-    private final String sandwichName = "Philly Cheese Steak";
     public List <Topping> signatureToppings = new ArrayList<>();
     public Sandwich CheeseSteak;
 
     public PhillyCheeseSteak() {
         super("White", 8, true);
-        this.signatureToppings = prepDefaultToppings();
+        getDefaultToppings();
     }
 
     public String getSandwichName() {
-        return sandwichName;
+        return "Philly Cheese Steak";
     }
 
     public List<Topping> getSignatureToppings() {
@@ -38,7 +37,7 @@ public class PhillyCheeseSteak extends SignatureSandwich {
     }
 
     @Override
-    protected List<Topping> prepDefaultToppings() {
+    public List<Topping> getDefaultToppings() {
         return getSignatureToppings();
     }
 }
