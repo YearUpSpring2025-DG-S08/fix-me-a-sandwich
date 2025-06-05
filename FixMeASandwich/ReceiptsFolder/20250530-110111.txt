@@ -1,0 +1,19 @@
+==== Order Receipt ===
+Time of Order: 2025-05-30|11:01:11
+Customer Name: Tray
+Order Items:
+=== Sandwich ===  
+Sandwich Size: 8 inches
+Sandwich Bread: wheat
+Toppings: Steak(extra): $3.00, Jalapenos(extra): $0.00, Swiss: $1.50
+Got Toasted?: true
+Sandwich Price: $11.50 
+
+
+=== Drink ===
+Medium Coke Cherry: $2.50
+
+
+
+=== Chip ===
+Funyons: $1.50

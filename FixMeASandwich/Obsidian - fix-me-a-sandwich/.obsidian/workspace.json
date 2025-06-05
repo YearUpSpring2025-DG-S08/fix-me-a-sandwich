@@ -15,8 +15,8 @@
               "state": {
                 "file": "Fix-Me-A-Sandwich Class Relationships.canvas",
                 "viewState": {
-                  "x": -1494.2159855877442,
-                  "y": -897.127855424781,
+                  "x": -1211.2437878300084,
+                  "y": -941.8862596170181,
                   "zoom": -1.5196824997391114
                 }
               },
@@ -81,8 +81,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "0a7a3879195a8a77",
